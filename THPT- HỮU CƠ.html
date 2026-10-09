@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TRƯỜNG THPT QUANG TRUNG - Luyện thi THPT môn Hóa học</title>
+  <style>
+    :root {
+      --primary-red: #b91c1c;
+      --primary-darkred: #881337;
+      --gold-yellow: #f59e0b;
+      --gold-light: #fef3c7;
+      --copper-bronze: #78350f;
+      --bg-cream: #faf8f5;
+      --text-main: #1f2937;
+      --text-muted: #6b7280;
+      --card-bg: #ffffff;
+      --border-color: #e5e7eb;
+      --success: #059669;
+      --accent-blue: #0284c7;
+      --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-family);
+    }
+
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header hoa van trong dong & mau co to quoc */
+    header {
+      background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-darkred) 100%);
+      color: white;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 4px 12px rgba(185, 28, 28, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at 10% 50%, rgba(245, 158, 11, 0.25) 0%, transparent 60%),
+                  radial-gradient(circle at 90% 50%, rgba(245, 158, 11, 0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      background-color: var(--gold-yellow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-darkred);
+      font-size: 22px;
+      font-weight: bold;
+      border: 2px solid white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .brand-title h1 {
+      font-size: 1.25rem;
+      letter-spacing: 0.5px;
+      font-weight: 700;
+    }
+
+    .brand-title p {
+      font-size: 0.8rem;
+      color: var(--gold-light);
+    }
+
+    .role-switcher {
+      display: flex;
+      gap: 8px;
+      background-color: rgba(255, 255, 255, 0.15);
+      padding: 4px;
+      border-radius: 8px;
+    }
+
+    .role-btn {
+      background: transparent;
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .role-btn.active {
+      background-color: white;
+      color: var(--primary-red);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 1.5rem auto;
+      padding: 0 1rem;
+      flex: 1;
+      width: 100%;
+    }
+
+    /* Banner van hoa giao duc */
+    .vietnam-banner {
+      background-color: #fff;
+      border-left: 5px solid var(--gold-yellow);
+      border-right: 1px solid var(--border-color);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .banner-quote {
+      font-style: italic;
+      color: var(--copper-bronze);
+      font-size: 0.9rem;
+    }
+
+    /* View Sections */
+    .view-section {
+      display: none;
+    }
+
+    .view-section.active {
+      display: block;
+    }
+
+    /* Card styling */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .card-header {
+      border-bottom: 2px solid var(--gold-light);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary-darkred);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Student Form & Phone layout */
+    .student-phone-mockup {
+      max-width: 680px;
+      margin: 0 auto;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.5rem;
+      background: #ffffff;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+      color: #374151;
+    }
+
+    input[type="text"], select {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+      background: #fff;
+    }
+
+    input[type="text"]:focus, select:focus {
+      border-color: var(--primary-red);
+      box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.1);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 18px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(to right, var(--primary-red), #dc2626);
+      color: white;
+      box-shadow: 0 2px 4px rgba(185, 28, 28, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(to right, #991b1b, #b91c1c);
+    }
+
+    .btn-success {
+      background-color: var(--success);
+      color: white;
+    }
+
+    .btn-success:hover {
+      background-color: #047857;
+    }
+
+    .btn-outline {
+      background-color: white;
+      border: 1px solid var(--border-color);
+      color: #374151;
+    }
+
+    .btn-outline:hover {
+      background-color: #f3f4f6;
+    }
+
+    .btn-danger {
+      background-color: #ef4444;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background-color: #dc2626;
+    }
+
+    /* Question Parts & Boxes */
+    .exam-part-header {
+      background: #fff1f2;
+      border: 1px solid #fecdd3;
+      color: var(--primary-darkred);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin: 1.5rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .question-box {
+      background: #fdfbf7;
+      border: 1px solid #fed7aa;
+      border-radius: 10px;
+      padding: 1.1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .q-number {
+      font-weight: 700;
+      color: var(--primary-darkred);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .q-badge {
+      font-size: 0.75rem;
+      background: var(--gold-light);
+      color: var(--copper-bronze);
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    .q-content {
+      font-size: 0.96rem;
+      line-height: 1.55;
+      margin-bottom: 14px;
+      white-space: pre-line;
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 9px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      cursor: pointer;
+      background: white;
+      transition: all 0.15s;
+    }
+
+    .option-item:hover {
+      border-color: var(--primary-red);
+      background-color: #fff1f2;
+    }
+
+    .option-item input[type="radio"] {
+      accent-color: var(--primary-red);
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    /* True / False format */
+    .tf-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .tf-table th {
+      background-color: #f9fafb;
+      padding: 8px 10px;
+      font-size: 0.85rem;
+      color: #4b5563;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .tf-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.9rem;
+    }
+
+    .tf-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .tf-label input[type="radio"] {
+      accent-color: var(--primary-red);
+    }
+
+    /* Short Answer input */
+    .short-input-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .short-input-box input {
+      max-width: 280px;
+      font-weight: 600;
+    }
+
+    /* Teacher Dashboard Grid */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 1.2rem;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+
+    .stat-val {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .stat-lbl {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* Score Distribution Histogram */
+    .histogram-wrapper {
+      padding: 1rem 0;
+    }
+
+    .histogram-chart {
+      display: flex;
+      align-items: flex-end;
+      height: 180px;
+      gap: 12px;
+      padding: 10px 0 0 0;
+      border-bottom: 2px solid var(--border-color);
+      position: relative;
+    }
+
+    .histogram-bar-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      justify-content: flex-end;
+    }
+
+    .bar {
+      width: 80%;
+      max-width: 45px;
+      background: linear-gradient(to top, var(--primary-red), #f87171);
+      border-radius: 4px 4px 0 0;
+      transition: height 0.4s ease;
+      position: relative;
+    }
+
+    .bar-tooltip {
+      position: absolute;
+      top: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: var(--primary-darkred);
+      white-space: nowrap;
+    }
+
+    .bar-label {
+      margin-top: 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #4b5563;
+      text-align: center;
+    }
+
+    /* Table styling */
+    .table-responsive {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background-color: #f9fafb;
+      color: #374151;
+      font-weight: 700;
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-color);
+      color: #1f2937;
+    }
+
+    tr:hover td {
+      background-color: #fff9f9;
+    }
+
+    .score-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .score-high {
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+
+    .score-mid {
+      background-color: #fef3c7;
+      color: #92400e;
+    }
+
+    .score-low {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+
+    /* Modal for detailed review */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 12px;
+      max-width: 720px;
+      width: 100%;
+      max-height: 88vh;
+      overflow-y: auto;
+      padding: 1.5rem;
+      position: relative;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #9ca3af;
+    }
+
+    .modal-close:hover {
+      color: #374151;
+    }
+
+    /* Toast Notification for Real-Time feedback */
+    .realtime-toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #111827;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 2000;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      border-left: 4px solid var(--gold-yellow);
+    }
+
+    .realtime-toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .exam-card-badge {
+      background: var(--primary-red);
+      color: white;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+
+    footer {
+      background-color: white;
+      border-top: 1px solid var(--border-color);
+      padding: 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: auto;
+    }
+
+    .dong-son-motif {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      vertical-align: middle;
+      margin: 0 4px;
+      background: radial-gradient(circle, var(--gold-yellow) 20%, transparent 20%),
+                  radial-gradient(circle, var(--primary-red) 40%, transparent 40%);
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header mang ban sac Viet Nam -->
+  <header>
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon">★</div>
+        <div class="brand-title">
+          <h1>TRƯỜNG THPT QUANG TRUNG</h1>
+          <p>Luyện thi THPT môn Hóa học</p>
+        </div>
+      </div>
+      <div class="role-switcher">
+        <button class="role-btn active" id="btnRoleStudent" onclick="switchView('student')">📱 Học Sinh Làm Bài</button>
+        <button class="role-btn" id="btnRoleTeacher" onclick="switchView('teacher')">🎓 Giáo Viên (Realtime)</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Banner van hoa giao duc -->
+    <div class="vietnam-banner">
+      <div>
+        <strong style="color: var(--primary-darkred);">Ngân hàng 7 Bộ đề thi thử Hóa học Tốt nghiệp THPT Quốc gia</strong>
+        <div class="banner-quote">"Hiền tài là nguyên khí của quốc gia • Vững kiến thức - Sáng tương lai"</div>
+      </div>
+      <div style="font-size: 0.85rem; color: #4b5563;">
+        Thời gian: <span id="clockCurrent"></span>
+      </div>
+    </div>
+
+    <!-- ==================== GIAO DIEN HOC SINH ==================== -->
+    <section id="viewStudent" class="view-section active">
+      <div class="student-phone-mockup">
+        <!-- Man hinh dang nhap & chon de -->
+        <div id="studentLoginBox">
+          <div class="card-header" style="text-align: center; border: none; margin-bottom: 0.5rem;">
+            <div style="width: 100%;">
+              <div style="font-size: 2.2rem; margin-bottom: 8px;">🔬</div>
+              <h2 style="font-size: 1.3rem; color: var(--primary-darkred);">Chọn Đề Ôn Luyện Hóa Học</h2>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Đầy đủ 7 đề thi thử tốt nghiệp THPT chuẩn cấu trúc GDPT mới</p>
+            </div>
+          </div>
+
+          <form id="studentLoginForm" onsubmit="handleStudentLogin(event)">
+            <div class="form-group">
+              <label for="studentName">Họ và tên thí sinh:</label>
+              <input type="text" id="studentName" placeholder="VD: Nguyễn Văn An" required>
+            </div>
+            <div class="form-group">
+              <label for="studentClass">Lớp học:</label>
+              <select id="studentClass" required>
+                <option value="12A1">Lớp 12A1</option>
+                <option value="12A2">Lớp 12A2</option>
+                <option value="12A3">Lớp 12A3</option>
+                <option value="12A4">Lớp 12A4</option>
+                <option value="12A5">Lớp 12A5</option>
+                <option value="12A6">Lớp 12A6</option>
+                <option value="12A7">Lớp 12A7</option>
+                <option value="12A8">Lớp 12A8</option>
+                <option value="12A9">Lớp 12A9</option>
+                <option value="12A10">Lớp 12A10</option>
+                <option value="12A11">Lớp 12A11</option>
+                <option value="12A12">Lớp 12A12</option>
+                <option value="12A13">Lớp 12A13</option>
+                <option value="12A14">Lớp 12A14</option>
+                <option value="12A15">Lớp 12A15</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="studentExamSelect">Chọn 1 trong 7 đề thi:</label>
+              <select id="studentExamSelect" required>
+                <!-- Generated by JS -->
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; margin-top: 8px;">
+              Bắt Đầu Làm Bài Ngay ✍️
+            </button>
+          </form>
+        </div>
+
+        <!-- Man hinh lam bai -->
+        <div id="studentExamBox" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 8px;">
+            <div>
+              <strong id="examStudentName" style="color: var(--primary-darkred);"></strong> 
+              <span id="examStudentClass" style="font-size: 0.85rem; color: var(--text-muted);"></span>
+              <div id="examTitleDisplay" style="font-size: 0.82rem; font-weight: 600; color: #4b5563; margin-top: 2px;"></div>
+            </div>
+            <div style="background: #fee2e2; color: #991b1b; padding: 4px 10px; border-radius: 6px; font-size: 0.85rem; font-weight: bold;" id="examTimer">
+              ⏱️ 50:00
+            </div>
+          </div>
+
+          <form id="examQuestionsForm" onsubmit="handleExamSubmit(event)">
+            <div id="questionsListContainer">
+              <!-- Render cac phan I, II, III o day -->
+            </div>
+
+            <div style="margin-top: 1.5rem; text-align: center;">
+              <button type="submit" class="btn btn-primary" style="width: 100%; padding: 13px; font-size: 1rem;">
+                🇻🇳 Nộp Bài Luyện Tập Ngay
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Man hinh ket qua hoc sinh -->
+        <div id="studentResultBox" style="display: none; text-align: center; padding: 1rem 0;">
+          <div style="font-size: 3rem; margin-bottom: 10px;">🎉</div>
+          <h2 style="color: var(--primary-darkred); margin-bottom: 8px;">Nộp Bài Thành Công!</h2>
+          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">Kết quả làm bài đã được chuyển đến máy chủ giáo viên tại thời gian thực.</p>
+
+          <div style="background: var(--gold-light); border: 2px solid var(--gold-yellow); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
+            <div style="font-size: 0.9rem; color: var(--copper-bronze); margin-bottom: 4px;">Điểm số đạt được:</div>
+            <div style="font-size: 3.5rem; font-weight: 800; color: var(--primary-red);" id="resScoreVal">9.0</div>
+            <div style="font-size: 0.9rem; font-weight: 600; color: #4b5563;" id="resDetailText">Đúng 36/40 lệnh hỏi</div>
+          </div>
+
+          <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+            <button class="btn btn-primary" onclick="viewMySubmissionDetail()">🔍 Xem Lại Lời Giải Chi Tiết</button>
+            <button class="btn btn-outline" onclick="resetStudentExam()">Làm Đề Thi Khác</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== GIAO DIEN GIAO VIEN ==================== -->
+    <section id="viewTeacher" class="view-section">
+      <!-- Dashboard Summary -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-icon" style="background: #e0f2fe; color: #0284c7;">👥</div>
+          <div>
+            <div class="stat-val" id="statTotalSubmissions">0</div>
+            <div class="stat-lbl">Học sinh đã nộp bài</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background: #fef3c7; color: #d97706;">⭐</div>
+          <div>
+            <div class="stat-val" id="statAvgScore">0.0</div>
+            <div class="stat-lbl">Điểm trung bình</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background: #d1fae5; color: #059669;">🏆</div>
+          <div>
+            <div class="stat-val" id="statHighestScore">0.0</div>
+            <div class="stat-lbl">Điểm cao nhất</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background: #fee2e2; color: #dc2626;">📚</div>
+          <div>
+            <div class="stat-val" style="color: var(--primary-red);">7 Đề</div>
+            <div class="stat-lbl">Ngân hàng đề ôn tập</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bieu do pho diem -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span>📊</span> Phổ Điểm Học Sinh (Thang Điểm 0 - 10)
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <label for="filterExamSelect" style="margin: 0; font-size: 0.85rem; font-weight: normal;">Lọc theo đề:</label>
+            <select id="filterExamSelect" onchange="updateTeacherDashboard()" style="padding: 4px 8px; font-size: 0.85rem; width: auto;">
+              <option value="ALL">Tất cả các đề (7 đề)</option>
+            </select>
+          </div>
+        </div>
+        <div class="histogram-wrapper">
+          <div class="histogram-chart" id="histogramBarsContainer">
+            <!-- Bars rendered via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Bang chi tiet ket qua & Cong cu luu/xuat/xoa -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span>📋</span> Danh Sách Chi Tiết Kết Quả Bài Làm Học Sinh
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn btn-outline" onclick="loadSampleData()" title="Thêm học sinh mẫu">
+              📥 Nạp mẫu (10 HS)
+            </button>
+            <button class="btn btn-success" onclick="exportResultsToCSV()">
+              📥 Xuất File Excel (CSV)
+            </button>
+            <button class="btn btn-danger" onclick="confirmClearAllResults()">
+              🗑️ Xóa Tất Cả Kết Quả
+            </button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Thời Gian Nộp</th>
+                <th>Họ Và Tên</th>
+                <th>Lớp</th>
+                <th>Tên Đề Thi</th>
+                <th>Lệnh Đúng</th>
+                <th>Điểm Số</th>
+                <th>Thao Tác</th>
+              </tr>
+            </thead>
+            <tbody id="submissionsTableBody">
+              <tr>
+                <td colspan="8" style="text-align: center; color: var(--text-muted); padding: 2rem;">
+                  Chưa có bài thi nào được nộp cho đề này.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Modal xem chi tiet tung bai lam -->
+  <div class="modal-backdrop" id="detailModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeDetailModal()">&times;</button>
+      <div class="card-header">
+        <div class="card-title">
+          <span>🔍</span> Chi Tiết Bài Làm & Gợi Ý Đáp Án
+        </div>
+      </div>
+      <div id="modalBodyContent">
+        <!-- Noi dung cau tra loi dung/sai -->
+      </div>
+      <div style="margin-top: 1.5rem; text-align: right;">
+        <button class="btn btn-outline" onclick="closeDetailModal()">Đóng cửa sổ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Realtime Toast Notification -->
+  <div class="realtime-toast" id="liveToast">
+    <span style="font-size: 1.2rem;">🔔</span>
+    <span id="toastMessage">Thông báo nộp bài mới</span>
+  </div>
+
+  <footer>
+    <div style="margin-bottom: 6px;">
+      <span class="dong-son-motif"></span>
+      <strong>Hệ Thống Khảo Thí Hóa Học Trực Tuyến THPT</strong>
+      <span class="dong-son-motif"></span>
+    </div>
+    <p>Bản quyền giáo dục 2026 • Tự hào tri thức Việt Nam • Hỗ trợ hoàn hảo mọi thiết bị di động</p>
+  </footer>
+
+  <script>
+    // 7 Bo de thi Hoa hoc THPT day du
+    const EXAMS_DATABASE = [{"id": "de01", "code": "ĐỀ 01", "title": "Đề số 01 - Chuyên đề Hữu cơ (THPT Quang Trung 2026)", "time": 50, "parts": [{"partId": "p1", "title": "PHẦN I. Câu trắc nghiệm nhiều phương án lựa chọn (18 câu)", "type": "single", "questions": [{"q": 1, "c": "Cho các hydrocarbon: methane, ethene, ethyne và benzene. Ở điều kiện thường, không chiếu sáng và không dùng xúc tác, số chất làm mất màu nước bromine là", "opts": ["1.", "2.", "3.", "4."], "a": 1, "exp": "Ethene và ethyne chứa liên kết π kém bền phản ứng làm mất màu nước bromine."}, {"q": 2, "c": "Phổ IR của ethyl benzoate (C₆H₅COOC₂H₅). Kết luận nào sau đây không đúng?", "opts": ["Peak 1726 cm⁻¹ đặc trưng cho liên kết C=O của ester.", "Peak 2986 cm⁻¹ là tín hiệu đặc trưng của nhóm O–H.", "Peak 1286 cm⁻¹ phù hợp với dao động của liên kết C–O.", "Phổ không có dải O–H rộng đặc trưng của alcohol/acid."], "a": 1, "exp": "Ethyl benzoate không có nhóm O-H; tín hiệu 2986 cm⁻¹ là của liên kết C-H."}, {"q": 3, "c": "Đun nóng 2-bromobutane với dung dịch KOH trong ethanol. Sản phẩm alkene chính thu được là", "opts": ["but-1-ene.", "but-2-ene.", "butane.", "butan-2-ol."], "a": 1, "exp": "Theo quy tắc Zaitsev, sản phẩm chính là but-2-ene."}, {"q": 4, "c": "Cho propan-1-ol tác dụng với CuO nung nóng. Sản phẩm hữu cơ chính là", "opts": ["propanal.", "propanone.", "propanoic acid.", "propene."], "a": 0, "exp": "Alcohol bậc 1 bị CuO oxi hóa tạo aldehyde propanal."}, {"q": 5, "c": "Cho phenol lần lượt tác dụng với Na, NaOH, NaHCO₃ và nước bromine. Số trường hợp xảy ra phản ứng là", "opts": ["1.", "2.", "3.", "4."], "a": 2, "exp": "Phenol phản ứng với Na, NaOH và nước bromine (3 chất)."}, {"q": 6, "c": "Hợp chất X chứa 40,00% C; 6,67% H, còn lại là O. Phổ khối cho peak ion phân tử [M]⁺ tại m/z = 60; phổ IR có dải O–H rất rộng 3300–2500 cm⁻¹ và peak C=O khoảng 1700 cm⁻¹. X là", "opts": ["CH₃COOH.", "HCOOCH₃.", "CH₃CH₂OH.", "CH₃CHO."], "a": 0, "exp": "M=60, C2H4O2, có dải O-H liên kết hydro đặc trưng của nhóm -COOH => CH3COOH."}, {"q": 7, "c": "Xà phòng hóa ester X bằng NaOH thu được sodium propionate và methanol. Công thức của X là", "opts": ["CH₃COOC₂H₅.", "HCOOCH₂CH₂CH₃.", "CH₃CH₂COOCH₃.", "CH₃CH₂COOC₂H₅."], "a": 2, "exp": "Muối C2H5COONa và ancol CH3OH => ester là CH3CH2COOCH3."}, {"q": 8, "c": "Hydrogen hóa hoàn toàn 0,050 mol triolein cần số mol H₂ là", "opts": ["0,050.", "0,100.", "0,150.", "0,300."], "a": 2, "exp": "Triolein có 3 C=C nên cần 0,050 * 3 = 0,150 mol H2."}, {"q": 9, "c": "Xà phòng thường giặt rửa kém trong nước cứng chủ yếu vì", "opts": ["xà phòng bị thủy phân hoàn toàn trong nước.", "anion acid béo tạo muối ít tan với Ca²⁺, Mg²⁺.", "Na⁺ và K⁺ làm tăng độ cứng của nước.", "nước cứng luôn có môi trường acid mạnh."], "a": 1, "exp": "Tạo muối kết tủa ít tan với ion Ca²⁺, Mg²⁺."}, {"q": 10, "c": "Thủy phân hoàn toàn 0,050 mol saccharose trong môi trường acid, trung hòa acid rồi cho toàn bộ sản phẩm hữu cơ tác dụng với lượng dư thuốc thử Tollens. Khối lượng Ag tối đa thu được là", "opts": ["10,8 gam.", "16,2 gam.", "21,6 gam.", "43,2 gam."], "a": 2, "exp": "0,05 mol saccharose tạo 0,05 mol glucose + 0,05 mol fructose => 0,20 mol Ag => m = 21,6 gam."}, {"q": 11, "c": "Phát biểu nào sau đây đúng?", "opts": ["Amylose và cellulose đều có mạch phân nhánh.", "Tinh bột và cellulose đều tạo màu xanh tím với iodine.", "Thủy phân hoàn toàn tinh bột và cellulose đều thu được glucose.", "Cellulose được cơ thể người tiêu hóa dễ dàng thành glucose."], "a": 2, "exp": "Cả hai đều bị thủy phân hoàn toàn thành glucose."}, {"q": 12, "c": "Thứ tự giảm dần tính base trong dung dịch nước phù hợp nhất là", "opts": ["CH₃NH₂ > NH₃ > C₆H₅NH₂.", "C₆H₅NH₂ > NH₃ > CH₃NH₂.", "NH₃ > CH₃NH₂ > C₆H₅NH₂.", "CH₃NH₂ > C₆H₅NH₂ > NH₃."], "a": 0, "exp": "Alkylamine > ammonia > arylamine."}, {"q": 13, "c": "Cho 0,10 mol glutamic acid tác dụng với NaOH dư. Số mol NaOH tối đa phản ứng là", "opts": ["0,10 mol.", "0,20 mol.", "0,30 mol.", "0,40 mol."], "a": 1, "exp": "Glutamic acid có 2 nhóm -COOH => n(NaOH) = 0,20 mol."}, {"q": 14, "c": "Một pentapeptide mạch hở được tạo từ các α-amino acid. Số liên kết peptide trong một phân tử pentapeptide là", "opts": ["3.", "5.", "4.", "6."], "a": 2, "exp": "Pentapeptide có 4 liên kết peptide."}, {"q": 15, "c": "Phản ứng màu biuret của protein với Cu(OH)₂ trong môi trường kiềm chủ yếu liên quan đến", "opts": ["nhóm –COOH tự do.", "liên kết C=C.", "liên kết glycoside.", "liên kết peptide."], "a": 3, "exp": "Do Cu²⁺ tạo phức chất màu tím với liên kết peptide -CO-NH-."}, {"q": 16, "c": "Poly(ethylene terephthalate) (PET) được điều chế chủ yếu từ", "opts": ["ethylene glycol và terephthalic acid bằng phản ứng trùng ngưng.", "ethene bằng phản ứng trùng hợp.", "styrene bằng phản ứng trùng hợp.", "vinyl chloride bằng phản ứng trùng hợp."], "a": 0, "exp": "Đồng trùng ngưng giữa ethylene glycol và terephthalic acid."}, {"q": 17, "c": "Monomer X chỉ chứa C và H, trong đó C chiếm 92,308% khối lượng. Phổ khối (MS) cho phân tử khối của X bằng 104. Polymer thu được khi trùng hợp X là", "opts": ["polystyrene.", "polypropylene.", "polyethylene.", "poly(buta-1,3-diene)."], "a": 0, "exp": "X là styrene C8H8 (M=104), polymer là polystyrene (PS)."}, {"q": 18, "c": "Phát biểu nào sau đây đúng về quá trình lưu hóa cao su thiên nhiên?", "opts": ["Sulfur cộng hết vào mọi liên kết đôi nên polymer sau lưu hóa không còn C=C.", "Sulfur tạo một số cầu nối giữa các mạch polyisoprene, làm tăng độ bền và tính đàn hồi.", "Lưu hóa là phản ứng thủy phân polyisoprene.", "Lưu hóa làm cao su tan tốt hơn trong dung môi hữu cơ."], "a": 1, "exp": "Lưu hóa tạo cầu nối disunfua (-S-S-) liên kết các mạch cao su."}]}, {"partId": "p2", "title": "PHẦN II. Câu trắc nghiệm đúng - sai (4 câu)", "type": "tf", "questions": [{"q": 1, "c": "Chất hữu cơ X có tác dụng kháng khuẩn nhẹ. Phân tích nguyên tố cho 40,00% C; 6,67% H; còn lại là O. Phổ khối cho peak ion phân tử [M]⁺ tại m/z = 60 và phổ IR có dải O-H rộng và peak C=O.", "items": [{"t": "Công thức đơn giản nhất của X là CH₂O.", "a": "Đ"}, {"t": "Công thức phân tử của X là C₂H₄O₂.", "a": "Đ"}, {"t": "X có thể là ethanol.", "a": "S"}, {"t": "X phản ứng với NaHCO₃ giải phóng CO₂.", "a": "Đ"}], "exp": "X là acetic acid CH3COOH."}, {"q": 2, "c": "Một học sinh tổng hợp isoamyl acetate từ 9,0 gam acetic acid và 8,8 gam isoamyl alcohol, có H₂SO₄ đặc làm xúc tác. Hiệu suất phản ứng là 60%.", "items": [{"t": "Isoamyl acetate là ester no, đơn chức, mạch hở.", "a": "Đ"}, {"t": "Chỉ cần thấy peak 3350 cm⁻¹ là có thể kết luận chắc chắn mẫu chứa acetic acid.", "a": "S"}, {"t": "Có thể dùng phễu chiết để hỗ trợ tách lớp ester sau phản ứng.", "a": "Đ"}, {"t": "Khối lượng isoamyl acetate tối đa thu được theo hiệu suất đã cho là 7,8 gam.", "a": "Đ"}], "exp": "n(alcohol)=0,10 mol. m = 0,10 * 0,60 * 130 = 7,8 gam."}, {"q": 3, "c": "Một cơ sở dùng 162 kg tinh bột khô để sản xuất ethanol. Hiệu suất thủy phân tinh bột thành glucose là 90%; hiệu suất lên men glucose thành ethanol là 80%. Khối lượng riêng ethanol nguyên chất là 0,80 kg/L.", "items": [{"t": "Nếu thủy phân với hiệu suất 100%, 162 kg tinh bột tạo tối đa 180 kg glucose.", "a": "Đ"}, {"t": "Sau giai đoạn thủy phân 90%, khối lượng glucose thu được là 162 kg.", "a": "Đ"}, {"t": "Khối lượng ethanol thực tế thu được là 66,24 kg.", "a": "Đ"}, {"t": "Thể tích ethanol nguyên chất thực tế thu được là 92,0 L.", "a": "S"}], "exp": "V = 66,24 / 0,80 = 82,8 L (không phải 92,0 L)."}, {"q": 4, "c": "PET là polymer được dùng phổ biến để sản xuất chai, sợi và màng. Xét các phát biểu sau:", "items": [{"t": "PET thuộc loại polyester.", "a": "Đ"}, {"t": "Phổ IR của PET có tín hiệu hấp thụ đặc trưng của nhóm C=O trong liên kết ester.", "a": "Đ"}, {"t": "Thủy phân hoàn toàn 19,2 gam PET (coi đơn vị lặp có M = 192) thu được tối đa 0,20 mol ethylene glycol.", "a": "S"}, {"t": "PET được điều chế từ ethylene glycol và terephthalic acid bằng phản ứng trùng hợp.", "a": "S"}], "exp": "c) n = 19,2/192 = 0,10 mol. d) Phản ứng trùng ngưng."}]}, {"partId": "p3", "title": "PHẦN III. Câu trắc nghiệm trả lời ngắn (6 câu)", "type": "short", "questions": [{"q": 1, "c": "Hỗn hợp gồm ethene và ethyne có tổng số mol 0,10 mol. Cho hỗn hợp cộng hoàn toàn với Br₂, tổng lượng Br₂ phản ứng là 0,16 mol. Phần trăm số mol ethyne trong hỗn hợp bằng bao nhiêu?", "a": "60%", "exp": "x + y = 0,10; 2x + y = 0,16 => x = 0,06 (60%)."}, {"q": 2, "c": "Chất X chỉ chứa C, H, O. Phổ MS cho [M]⁺ tại m/z = 74; phổ IR có dải O–H của alcohol và không có peak C=O. Biết X là alcohol no, đơn chức, mạch hở. Có bao nhiêu đồng phân cấu tạo của X?", "a": "4", "exp": "C4H10O có 4 đồng phân alcohol cấu tạo."}, {"q": 3, "c": "Cho 0,50 mol acetic acid phản ứng với 0,60 mol ethanol để điều chế ethyl acetate. Hiệu suất ester hóa tính theo acetic acid là 72%; công đoạn tách tinh chế chỉ thu hồi được 90% lượng ester đã tạo thành. Tính khối lượng ethyl acetate thực tế thu được (gam, làm tròn đến 0,01).", "a": "28,51", "exp": "m = 0,50 * 0,72 * 0,90 * 88 = 28,512 g ≈ 28,51 g."}, {"q": 4, "c": "Một nhà máy xử lí 1,00 tấn nước mía chứa 12,0% saccharose theo khối lượng. Hiệu suất thu saccharose vào dung dịch sau chiết là 85%; công đoạn kết tinh thu hồi 90% lượng saccharose đã chiết. Sản phẩm đường chứa 2,0% nước theo khối lượng. Tính khối lượng đường sản phẩm (kg, làm tròn đến 0,01).", "a": "93,67", "exp": "m(đường) = 1000 * 0,12 * 0,85 * 0,90 / 0,98 = 93,67 kg."}, {"q": 5, "c": "Một pentapeptide mạch hở được tạo bởi đúng 2 gốc glycine và 3 gốc alanine. Biết M(glycine) = 75 và M(alanine) = 89. Tính phân tử khối của pentapeptide.", "a": "345", "exp": "M = 2*75 + 3*89 - 4*18 = 345."}, {"q": 6, "c": "Monomer styrene có phân tử khối 104. Một mẫu polystyrene có phân tử khối trung bình 208000. Coi polymer chỉ gồm các mắt xích styrene, tính hệ số polymer hóa trung bình n.", "a": "2000", "exp": "n = 208000 / 104 = 2000."}]}]}, {"id": "de02", "code": "ĐỀ 02", "title": "Đề số 02 - Chuyên đề Hóa học Hữu cơ (THPT Quang Trung 2026)", "time": 50, "parts": [{"partId": "p1", "title": "PHẦN I. Câu trắc nghiệm nhiều phương án lựa chọn (18 câu)", "type": "single", "questions": [{"q": 1, "c": "Trong phân tử hợp chất hữu cơ, carbon có hóa trị IV và các nguyên tử carbon có thể liên kết với nhau tạo mạch. Nội dung này thuộc", "opts": ["quy tắc Markovnikov.", "thuyết cấu tạo hóa học.", "quy tắc Zaitsev.", "thuyết acid–base Brønsted–Lowry."], "a": 1, "exp": "Luận điểm của thuyết cấu tạo hóa học."}, {"q": 2, "c": "Số đồng phân cấu tạo của hydrocarbon có công thức phân tử C₄H₁₀ là", "opts": ["1.", "2.", "3.", "4."], "a": 1, "exp": "Butane và 2-methylpropane."}, {"q": 3, "c": "Đun nóng bromoethane với dung dịch KOH trong nước, sản phẩm hữu cơ chính là", "opts": ["ethene.", "ethanol.", "ethanal.", "ethanoic acid."], "a": 1, "exp": "C2H5Br + KOH → C2H5OH + KBr."}, {"q": 4, "c": "Alcohol nào sau đây khi oxi hóa không hoàn toàn bằng CuO nung nóng tạo ketone?", "opts": ["propan-1-ol.", "propan-2-ol.", "ethanol.", "methanol."], "a": 1, "exp": "Propan-2-ol là alcohol bậc hai tạo propanone."}, {"q": 5, "c": "Phổ IR của hợp chất X cho thấy dải O–H rất rộng vùng khoảng 3300–2500 cm⁻¹ và peak C=O mạnh gần 1700 cm⁻¹. X thuộc loại", "opts": ["alcohol.", "carboxylic acid.", "ester.", "amine."], "a": 1, "exp": "Đặc trưng của carboxylic acid (-COOH)."}, {"q": 6, "c": "Hợp chất X chứa 40,00% C; 6,67% H; còn lại là O và có peak ion phân tử [M]⁺ tại m/z = 60. Số đồng phân cấu tạo của X thuộc loại carboxylic acid hoặc ester là", "opts": ["1.", "2.", "3.", "4."], "a": 1, "exp": "CH3COOH và HCOOCH3 (2 đồng phân)."}, {"q": 7, "c": "Ester no, đơn chức, mạch hở X có phân tử khối 88 theo phổ MS. Xà phòng hóa X thu được ethanol. Công thức của X là", "opts": ["HCOOC₃H₇.", "CH₃COOC₂H₅.", "C₂H₅COOCH₃.", "CH₃CH₂CH₂COOH."], "a": 1, "exp": "CH3COOC2H5 (ethyl acetate)."}, {"q": 8, "c": "Khi đun nóng hỗn hợp ethanol và nước rồi dẫn hơi qua ống sinh hàn để thu dung dịch ethanol có nồng độ cao hơn, phương pháp tách được sử dụng là", "opts": ["chiết.", "kết tinh.", "chưng cất.", "sắc kí."], "a": 2, "exp": "Phương pháp chưng cất."}, {"q": 9, "c": "Công thức thu gọn của triolein là", "opts": ["(C₁₇H₃₅COO)₃C₃H₅.", "(C₁₇H₃₃COO)₃C₃H₅.", "(C₁₅H₃₁COO)₃C₃H₅.", "(C₁₇H₃₁COO)₃C₃H₅."], "a": 1, "exp": "(C17H33COO)3C3H5."}, {"q": 10, "c": "Trong sodium stearate C₁₇H₃₅COONa, phần ưa nước và phần kị nước lần lượt là", "opts": ["C₁₇H₃₅– và –COO⁻Na⁺.", "–COO⁻Na⁺ và C₁₇H₃₅–.", "Na⁺ và toàn bộ C₁₇H₃₅COO⁻.", "C₁₇H₃₅COO⁻ và Na⁺."], "a": 1, "exp": "Đầu phân cực -COO⁻Na⁺ là ưa nước, đuôi C17H35- là kị nước."}, {"q": 11, "c": "Thuốc thử nào có thể dùng để phân biệt glucose và fructose trong chương trình phổ thông?", "opts": ["nước bromine.", "Cu(OH)₂ ở nhiệt độ thường.", "thuốc thử Tollens.", "dung dịch iodine."], "a": 0, "exp": "Glucose làm mất màu nước bromine, fructose thì không."}, {"q": 12, "c": "Thủy phân hoàn toàn saccharose trong môi trường acid thu được", "opts": ["glucose và fructose.", "hai phân tử glucose.", "glucose và galactose.", "fructose và galactose."], "a": 0, "exp": "Saccharose tạo glucose và fructose."}, {"q": 13, "c": "Nhỏ nước bromine vào aniline, hiện tượng quan sát được là", "opts": ["dung dịch chuyển xanh.", "xuất hiện kết tủa trắng.", "không có hiện tượng.", "có khí không màu thoát ra."], "a": 1, "exp": "Tạo kết tủa trắng 2,4,6-tribromoaniline."}, {"q": 14, "c": "Trong môi trường kiềm mạnh (pH ≈ 13), glutamic acid tồn tại chủ yếu ở dạng có điện tích tổng cộng", "opts": ["+2.", "+1.", "−1.", "−2."], "a": 3, "exp": "Hai nhóm -COOH đều phân li mất H⁺ thành -COO⁻ nên điện tích là -2."}, {"q": 15, "c": "Lòng trắng trứng chuyển từ dạng lỏng sang dạng rắn khi đun nóng chủ yếu do", "opts": ["thủy phân protein.", "đông tụ/biến tính protein.", "trùng hợp amino acid.", "phản ứng ester hóa."], "a": 1, "exp": "Hiện tượng đông tụ protein."}, {"q": 16, "c": "Monomer X chỉ chứa C và H, C chiếm 92,308% khối lượng; phổ MS cho M = 104. Tên polymer tạo thành khi trùng hợp X là", "opts": ["polystyrene.", "polypropylene.", "polyethylene.", "poly(vinyl chloride)."], "a": 0, "exp": "X là styrene, polymer là polystyrene."}, {"q": 17, "c": "Nylon-6,6 được điều chế chủ yếu từ", "opts": ["hexamethylenediamine và adipic acid.", "caprolactam bằng phản ứng trùng hợp.", "ethylene glycol và terephthalic acid.", "styrene và buta-1,3-diene."], "a": 0, "exp": "Đồng trùng ngưng hexamethylenediamine và adipic acid."}, {"q": 18, "c": "Mục đích chính của lưu hóa cao su là", "opts": ["làm cao su tan tốt hơn trong nước.", "tạo một số liên kết ngang giữa các mạch, cải thiện độ bền và đàn hồi.", "phá vỡ hoàn toàn mạch polymer.", "chuyển cao su thành monomer isoprene."], "a": 1, "exp": "Tạo cầu nối -S-S- làm tăng độ bền và tính đàn hồi."}]}, {"partId": "p2", "title": "PHẦN II. Câu trắc nghiệm đúng - sai (4 câu)", "type": "tf", "questions": [{"q": 1, "c": "Ba chất lỏng phenyl chloride, propyl chloride và allyl chloride được kí hiệu ngẫu nhiên X, Y, Z. Thử với AgNO3 sau các bước xử lí:", "items": [{"t": "X là allyl chloride.", "a": "Đ"}, {"t": "Y là propyl chloride.", "a": "Đ"}, {"t": "Z là phenyl chloride.", "a": "Đ"}, {"t": "Cả X, Y, Z đều thủy phân dễ dàng khi lắc với nước ở nhiệt độ thường.", "a": "S"}], "exp": "Allyl chloride hoạt động nhất (thủy phân khi đun sôi với nước); phenyl chloride rất trơ."}, {"q": 2, "c": "Ester X no, đơn chức, mạch hở có M = 88 theo phổ MS. Xà phòng hóa X thu được ethanol.", "items": [{"t": "X là ethyl acetate (CH₃COOC₂H₅).", "a": "Đ"}, {"t": "Phổ IR của X có peak C=O ester ở vùng 1750–1735 cm⁻¹ và có thể có peak C–O ở vùng 1300–1000 cm⁻¹.", "a": "Đ"}, {"t": "0,10 mol X phản ứng tối đa với 0,20 mol NaOH khi xà phòng hóa hoàn toàn.", "a": "S"}, {"t": "X là đồng phân cấu tạo của butanoic acid.", "a": "Đ"}], "exp": "Ester đơn chức phản ứng tỉ lệ 1:1 với NaOH."}, {"q": 3, "c": "Monomer X dùng sản xuất xốp EPS chỉ chứa C, H; carbon chiếm 92,308% khối lượng và phổ MS cho M = 104.", "items": [{"t": "Công thức phân tử của X là C₈H₈.", "a": "Đ"}, {"t": "X là styrene và tạo polystyrene bằng phản ứng trùng hợp.", "a": "Đ"}, {"t": "Nếu hiệu suất 100% thì 104 kg monomer X tạo tối đa 104 kg polystyrene, bỏ qua chất khơi mào.", "a": "Đ"}, {"t": "Khối lượng của một mắt xích trong polystyrene bằng 52.", "a": "S"}], "exp": "Mắt xích polystyrene có khối lượng 104."}, {"q": 4, "c": "Thử nghiệm Tollens, iodine và Cu(OH)2 với glucose, saccharose, tinh bột và protein:", "items": [{"t": "Glucose cho phản ứng Tollens.", "a": "Đ"}, {"t": "Saccharose cho phản ứng Tollens trực tiếp trong điều kiện thông thường.", "a": "S"}, {"t": "Tinh bột tạo màu xanh tím với iodine.", "a": "Đ"}, {"t": "Protein có từ hai liên kết peptide trở lên cho phản ứng màu biuret với Cu(OH)₂ trong môi trường kiềm.", "a": "Đ"}], "exp": "Saccharose không có phản ứng tráng bạc trực tiếp."}]}, {"partId": "p3", "title": "PHẦN III. Câu trắc nghiệm trả lời ngắn (6 câu)", "type": "short", "questions": [{"q": 1, "c": "Hỗn hợp X gồm ethanal và propanone có tổng số mol 0,10 mol. Cho X tác dụng hoàn toàn với lượng dư thuốc thử Tollens thu được 10,8 gam Ag. Phần trăm số mol propanone trong hỗn hợp là bao nhiêu?", "a": "50%", "exp": "n(ethanal) = 0,10/2 = 0,05 mol => propanone = 0,05 mol (50%)."}, {"q": 2, "c": "Cho 0,10 mol phenol tác dụng với lượng dư nước bromine. Tính khối lượng kết tủa 2,4,6-tribromophenol thu được (gam).", "a": "33,1", "exp": "m = 0,10 * 331 = 33,1 gam."}, {"q": 3, "c": "Xà phòng hóa hoàn toàn 17,6 gam ethyl acetate bằng lượng vừa đủ NaOH. Cô cạn dung dịch sau phản ứng. Tính khối lượng sodium acetate khan thu được (gam).", "a": "16,4", "exp": "m = 0,20 * 82 = 16,4 gam."}, {"q": 4, "c": "Một nguyên liệu chứa 80% tinh bột theo khối lượng. Dùng 250 kg nguyên liệu để sản xuất ethanol. Hiệu suất thủy phân tinh bột thành glucose là 90%; hiệu suất lên men glucose thành ethanol là 75%. Tính khối lượng ethanol thu được (kg, làm tròn đến 0,01).", "a": "76,67", "exp": "m = 250 * 0,80 * (92/162) * 0,90 * 0,75 = 76,67 kg."}, {"q": 5, "c": "Cho 0,10 mol glutamic acid tác dụng hoàn toàn với lượng NaOH vừa đủ để trung hòa tối đa các nhóm –COOH. Tính khối lượng NaOH cần dùng (gam).", "a": "8,0", "exp": "m = 0,10 * 2 * 40 = 8,0 gam."}, {"q": 6, "c": "PET có mắt xích trung bình C₁₀H₈O₄, M = 192. Một mẫu PET có phân tử khối trung bình 57600. Tính hệ số polymer hóa trung bình n.", "a": "300", "exp": "n = 57600 / 192 = 300."}]}]}, {"id": "de03", "code": "ĐỀ 03", "title": "Đề số 03 - Chuyên đề Hóa học Hữu cơ (Đề thi thử THPT 2026)", "time": 50, "parts": [{"partId": "p1", "title": "PHẦN I. Câu trắc nghiệm nhiều phương án lựa chọn (18 câu)", "type": "single", "questions": [{"q": 1, "c": "Tên theo danh pháp thay thế của hợp chất CH₃–C(CH₃)=CH₂ là", "opts": ["but-1-ene.", "2-methylpropene.", "but-2-ene.", "2-methylpropane."], "a": 1, "exp": "2-methylpropene."}, {"q": 2, "c": "Cho propene tác dụng với nước trong môi trường acid. Sản phẩm hữu cơ chính theo quy tắc Markovnikov là", "opts": ["propan-1-ol.", "propanal.", "propan-2-ol.", "propanone."], "a": 2, "exp": "Propan-2-ol."}, {"q": 3, "c": "Khi cho benzene phản ứng với hỗn hợp HNO₃ đặc/H₂SO₄ đặc, đun nóng nhẹ, sản phẩm hữu cơ chính là", "opts": ["nitrobenzene.", "benzoic acid.", "phenol.", "aniline."], "a": 0, "exp": "Nitrobenzene C6H5NO2."}, {"q": 4, "c": "Phenol phản ứng được với dung dịch NaOH còn ethanol hầu như không phản ứng. Nguyên nhân phù hợp nhất là", "opts": ["phenol có khối lượng mol lớn hơn ethanol.", "ethanol tan trong nước tốt hơn phenol.", "liên kết O–H trong ethanol phân cực hơn phenol.", "anion phenoxide được ổn định bởi sự liên hợp với vòng benzene."], "a": 3, "exp": "Anion phenoxide được giải tỏa điện tích âm nhờ liên hợp với vòng thơm."}, {"q": 5, "c": "Phổ khối (MS) của hợp chất X có peak ion phân tử m/z = 94. X phản ứng với NaOH tạo muối và được dùng sản xuất nhựa phenol-formaldehyde. Công thức phân tử của X là", "opts": ["C₆H₆O.", "C₆H₁₀O.", "C₇H₁₀.", "C₅H₂O₂."], "a": 0, "exp": "Phenol C6H6O (M=94)."}, {"q": 6, "c": "Benzoic acid được dùng trong bảo quản thực phẩm dưới dạng muối benzoate. Phương trình nào sau đây mô tả đúng phản ứng của benzoic acid với NaHCO₃?", "opts": ["C₆H₅COOH + NaOH → C₆H₅OH + NaHCO₃.", "C₆H₅COOH + NaHCO₃ → C₆H₅COONa + CO₂ + H₂O.", "C₆H₅COOH + NaHCO₃ → C₆H₅CHO + Na₂CO₃.", "C₆H₅COOH + NaHCO₃ → C₆H₆ + Na₂CO₃ + H₂O."], "a": 1, "exp": "C6H5COOH + NaHCO3 → C6H5COONa + CO2 + H2O."}, {"q": 7, "c": "Oxi hóa không hoàn toàn benzyl alcohol C₆H₅CH₂OH bằng CuO nung nóng thu được sản phẩm hữu cơ chính là", "opts": ["benzene.", "benzoic acid.", "benzaldehyde.", "phenol."], "a": 2, "exp": "Benzaldehyde C6H5CHO."}, {"q": 8, "c": "Xà phòng hóa methyl acetate CH₃COOCH₃ bằng NaOH thu được", "opts": ["CH₃COONa và CH₃OH.", "HCOONa và C₂H₅OH.", "CH₃COONa và C₂H₅OH.", "HCOONa và CH₃OH."], "a": 0, "exp": "CH3COONa và CH3OH."}, {"q": 9, "c": "Công thức cấu tạo thu gọn của tripalmitin là", "opts": ["(C₁₇H₃₃COO)₃C₃H₅.", "(C₁₇H₃₅COO)₃C₃H₅.", "(C₁₅H₂₉COO)₃C₃H₅.", "(C₁₅H₃₁COO)₃C₃H₅."], "a": 3, "exp": "(C15H31COO)3C3H5."}, {"q": 10, "c": "Khi hydrogen hóa một phần dầu thực vật chứa nhiều gốc acid béo không no, xu hướng biến đổi nào sau đây là đúng?", "opts": ["Số liên kết C=C tăng và nhiệt độ nóng chảy giảm.", "Số liên kết C=C giảm và chỉ số iodine giảm.", "Số nhóm ester giảm và chỉ số acid tăng mạnh.", "Số nguyên tử oxygen trong chất béo tăng."], "a": 1, "exp": "Số C=C giảm, chỉ số iodine giảm."}, {"q": 11, "c": "Maltose có tính khử còn saccharose hầu như không có tính khử trực tiếp vì", "opts": ["maltose có khối lượng mol nhỏ hơn.", "maltose có một nhóm hemiacetal tự do có thể mở vòng.", "saccharose không chứa oxygen.", "saccharose không tan trong nước."], "a": 1, "exp": "Maltose còn nhóm hemiacetal tự do có thể mở vòng tạo aldehyde."}, {"q": 12, "c": "Cellulose trinitrate được điều chế trực tiếp bằng cách cho cellulose tác dụng với", "opts": ["HNO₃ đặc có H₂SO₄ đặc.", "NaOH đặc, nóng.", "Br₂ trong nước.", "H₂/Ni, t°."], "a": 0, "exp": "HNO3 đặc có H2SO4 đặc."}, {"q": 13, "c": "N-methylethanamine có công thức cấu tạo thu gọn là C₂H₅NHCH₃. Đây là", "opts": ["amine bậc một.", "amine bậc hai.", "amine bậc ba.", "amino acid."], "a": 1, "exp": "Amine bậc hai."}, {"q": 14, "c": "Phổ MS có peak ion phân tử tại m/z = 59. Hợp chất X là một amine no, mạch hở và có ba nguyên tử carbon. Công thức phân tử phù hợp là", "opts": ["C₃H₇N.", "C₂H₅NO.", "C₃H₉N.", "C₄H₁₃N."], "a": 2, "exp": "C3H9N."}, {"q": 15, "c": "Ở pH ≈ 1, lysine H₂N–(CH₂)₄–CH(NH₂)–COOH tồn tại chủ yếu ở dạng proton hóa. Điện tích tổng cộng gần đúng của dạng chủ yếu là", "opts": ["0.", "+1.", "+2.", "−1."], "a": 2, "exp": "+2."}, {"q": 16, "c": "Một tetrapeptide mạch hở được tạo bởi Ala, Gly, Val và Lys, mỗi gốc xuất hiện đúng một lần. Sau khi thủy phân hoàn toàn, cho toàn bộ amino acid thu được tác dụng với HCl dư. Số mol HCl tối đa phản ứng với sản phẩm từ 1 mol tetrapeptide là", "opts": ["3 mol.", "4 mol.", "5 mol.", "6 mol."], "a": 2, "exp": "Lysine có 2 nhóm amino nên tổng số nhóm -NH2 là 5 mol."}, {"q": 17, "c": "Nylon-6 có thể được sản xuất trực tiếp bằng phản ứng trùng hợp mở vòng của", "opts": ["styrene.", "caprolactam.", "vinyl chloride.", "methyl methacrylate."], "a": 1, "exp": "Caprolactam."}, {"q": 18, "c": "Poly(methyl methacrylate) - PMMA, vật liệu làm “thủy tinh hữu cơ”, được điều chế từ monomer", "opts": ["CH₂=CHCl.", "CH₂=CH–C₆H₅.", "CH₂=C(CH₃)COOCH₃.", "CH₂=CH–CH=CH₂."], "a": 2, "exp": "CH2=C(CH3)COOCH3."}]}, {"partId": "p2", "title": "PHẦN II. Câu trắc nghiệm đúng - sai (4 câu)", "type": "tf", "questions": [{"q": 1, "c": "Nhận biết ba chất lỏng không màu X, Y, Z gồm phenol, benzyl alcohol và benzoic acid:", "items": [{"t": "X là phenol.", "a": "Đ"}, {"t": "Y có thể bị CuO nung nóng oxi hóa thành benzaldehyde.", "a": "Đ"}, {"t": "Z phản ứng với NaHCO₃ theo tỉ lệ mol 1 : 1 và giải phóng CO₂.", "a": "Đ"}, {"t": "Chỉ dùng dung dịch NaOH là đủ để nhận biết riêng rẽ cả ba chất X, Y, Z.", "a": "S"}], "exp": "d) Phenol và benzoic acid đều tan trong NaOH."}, {"q": 2, "c": "Hợp chất X có phổ IR peak 1750-1735 cm⁻¹, không có dải O-H acid, MS có m/z = 74:", "items": [{"t": "Peak hấp thụ mạnh vùng khoảng 1750–1735 cm⁻¹ phù hợp với liên kết C=O của ester.", "a": "Đ"}, {"t": "Việc không có dải O–H rất rộng vùng 3300–2500 cm⁻¹ giúp loại khả năng X là carboxylic acid.", "a": "Đ"}, {"t": "Dữ kiện MS và IR phù hợp với methyl acetate CH₃COOCH₃.", "a": "Đ"}, {"t": "0,10 mol X xà phòng hóa hoàn toàn cần tối đa 0,20 mol NaOH.", "a": "S"}], "exp": "d) Methyl acetate đơn chức chỉ cần 0,10 mol NaOH."}, {"q": 3, "c": "Mẫu dầu thực vật hydrogen hóa một phần (lượng Br2 bị cộng bởi 100 g dầu giảm từ 0,40 mol xuống 0,18 mol):", "items": [{"t": "Quá trình hydrogen hóa đã làm giảm số liên kết C=C trong mẫu dầu.", "a": "Đ"}, {"t": "Sau hydrogen hóa, nhiệt độ nóng chảy của mẫu dầu có xu hướng tăng.", "a": "Đ"}, {"t": "Xà phòng hóa mẫu trước và sau hydrogen hóa đều có thể thu được glycerol.", "a": "Đ"}, {"t": "Hydrogen hóa làm giảm số nhóm ester trong triglyceride nên lượng NaOH cần xà phòng hóa giảm mạnh.", "a": "S"}], "exp": "d) Hydrogen hóa không làm thay đổi nhóm ester."}, {"q": 4, "c": "Khảo sát ảnh hưởng của pH đến sự thủy phân tinh bột nhờ enzyme amylase (10 phút, 37°C):", "items": [{"t": "Trong phạm vi khảo sát, pH = 7 cho hoạt tính thủy phân lớn nhất.", "a": "Đ"}, {"t": "Nhiệt độ, thời gian ủ và lượng enzyme là các biến cần được giữ cố định khi khảo sát riêng ảnh hưởng của pH.", "a": "Đ"}, {"t": "Nếu bố trí mẫu đối chứng không có enzyme thì lượng đường khử dự kiến phải lớn hơn mẫu pH = 7.", "a": "S"}, {"t": "Kết quả đường khử tăng không đủ để kết luận toàn bộ tinh bột đã chuyển hoàn toàn thành glucose.", "a": "Đ"}], "exp": "c) Mẫu không có enzyme thì lượng đường khử gần như bằng 0."}]}, {"partId": "p3", "title": "PHẦN III. Câu trắc nghiệm trả lời ngắn (6 câu)", "type": "short", "questions": [{"q": 1, "c": "Hydrocarbon X mạch hở có peak ion phân tử trên phổ MS tại m/z = 56 và cộng tối đa 1 mol H₂ cho 1 mol X. Không xét đồng phân hình học, có bao nhiêu đồng phân cấu tạo của X?", "a": "3", "exp": "Alkene C4H8 có 3 đồng phân cấu tạo."}, {"q": 2, "c": "Một học sinh điều chế methyl benzoate từ 6,10 g benzoic acid và methanol dư. Sau phản ứng, thu được 5,90 g sản phẩm thô chứa 92,0% methyl benzoate theo khối lượng. Tính hiệu suất toàn quá trình theo benzoic acid (%).", "a": "79,82%", "exp": "H = (5,90 * 0,92) / (0,05 * 136) = 79,82%."}, {"q": 3, "c": "Một hỗn hợp chất béo chỉ gồm triolein (M = 884) và tripalmitin (M = 806) có khối lượng 84,5 g. Hydrogen hóa hoàn toàn hỗn hợp cần 0,15 mol H₂. Tính khối lượng NaOH tối thiểu cần để xà phòng hóa hoàn toàn 84,5 g hỗn hợp (gam).", "a": "12,0", "exp": "m(NaOH) = (0,05 + 0,05) * 3 * 40 = 12,0 gam."}, {"q": 4, "c": "Một cơ sở sản xuất bioethanol dùng 500 kg phế liệu thực vật chứa 60,0% cellulose, còn lại trơ. Hiệu suất thủy phân 80,0%; hiệu suất lên men 75,0%. Khối lượng riêng ethanol là 0,80 kg/L. Tính thể tích ethanol nguyên chất thu được (L).", "a": "127,78", "exp": "V = 102,222 / 0,80 = 127,78 L."}, {"q": 5, "c": "Một hexapeptide mạch hở gồm 6 gốc α-amino acid, trong đó có đúng 1 gốc glutamic acid và 5 gốc còn lại chỉ chứa một nhóm –COOH. Thủy phân hoàn toàn 0,020 mol peptide bằng NaOH dư. Tính khối lượng NaOH tối đa phản ứng (gam).", "a": "5,60", "exp": "m = 0,020 * 7 * 40 = 5,60 gam."}, {"q": 6, "c": "Trong sản xuất nylon-6,6, dùng 146 kg adipic acid (M = 146) và hexamethylenediamine dư. Mắt xích nylon-6,6 có M = 226. Hiệu suất tạo polymer là 85,0%. Tính khối lượng nylon-6,6 thu được (kg).", "a": "192,10", "exp": "m = 226 * 0,85 = 192,10 kg."}]}]}, {"id": "de04", "code": "ĐỀ 04", "title": "Đề số 04 - Chuyên đề Hóa học Hữu cơ (Đề thi thử THPT 2026)", "time": 50, "parts": [{"partId": "p1", "title": "PHẦN I. Câu trắc nghiệm nhiều phương án lựa chọn (18 câu)", "type": "single", "questions": [{"q": 1, "c": "Tên theo danh pháp thay thế của CH₃–CH=C(CH₃)–CH₃ là", "opts": ["3-methylbut-2-ene.", "2-methylbut-2-ene.", "2-methylbut-1-ene.", "pent-2-ene."], "a": 1, "exp": "2-methylbut-2-ene."}, {"q": 2, "c": "Cho propene tác dụng với HBr trong điều kiện thông thường. Sản phẩm hữu cơ chính là", "opts": ["1-bromopropane.", "2-bromopropane.", "1,2-dibromopropane.", "propan-1-ol."], "a": 1, "exp": "2-bromopropane."}, {"q": 3, "c": "Trong một quy trình điều chế monomer dùng sản xuất PVC, ethyne cộng HCl tạo chất X. X là", "opts": ["CH₂=CHCl.", "CH₃CH₂Cl.", "CHCl=CHCl.", "CH₂Cl–CH₂Cl."], "a": 0, "exp": "Vinyl chloride CH2=CHCl."}, {"q": 4, "c": "Khi oxi hóa mạnh toluene C₆H₅CH₃ bằng dung dịch KMnO₄ nóng rồi acid hóa, sản phẩm hữu cơ chính là", "opts": ["benzyl alcohol.", "benzaldehyde.", "benzoic acid.", "phenol."], "a": 2, "exp": "Benzoic acid C6H5COOH."}, {"q": 5, "c": "Phổ khối của hợp chất X có peak ion phân tử tại m/z = 122. X chứa C, H, O, có vòng benzene và phản ứng được với NaHCO₃ giải phóng CO₂. Công thức phân tử phù hợp là", "opts": ["C₇H₆O₂.", "C₈H₁₀O.", "C₆H₆O₂.", "C₇H₁₀N₂."], "a": 0, "exp": "C6H5COOH (C7H6O2, M=122)."}, {"q": 6, "c": "Glycerol hòa tan Cu(OH)₂ ở điều kiện thường tạo dung dịch màu xanh lam chủ yếu vì glycerol", "opts": ["là acid mạnh.", "có nhiều nhóm –OH kề nhau có khả năng tạo phức với Cu²⁺.", "có liên kết C=C.", "có nhóm –CHO."], "a": 1, "exp": "Có nhiều nhóm -OH liền kề tạo phức với Cu²⁺."}, {"q": 7, "c": "Phổ IR của chất X cho thấy dải O–H rất rộng 3300–2500 cm⁻¹ và peak C=O mạnh 1700 cm⁻¹. X phù hợp nhất với loại hợp chất", "opts": ["carboxylic acid.", "alcohol no đơn chức.", "amine.", "alkene."], "a": 0, "exp": "Carboxylic acid."}, {"q": 8, "c": "Ester HCOOC₂H₅ có tên gọi là", "opts": ["methyl acetate.", "ethyl formate.", "ethyl acetate.", "methyl propionate."], "a": 1, "exp": "Ethyl formate."}, {"q": 9, "c": "Chất CH₃(CH₂)₁₁OSO₃Na được xếp vào", "opts": ["xà phòng sodium của acid béo.", "chất giặt rửa tổng hợp loại sulfate.", "triglyceride.", "polymer thiên nhiên."], "a": 1, "exp": "Chất giặt rửa tổng hợp loại alkyl sulfate."}, {"q": 10, "c": "Xà phòng hóa hoàn toàn tristearin bằng NaOH thu được glycerol và", "opts": ["sodium oleate.", "sodium stearate.", "sodium palmitate.", "sodium acetate."], "a": 1, "exp": "Sodium stearate C17H35COONa."}, {"q": 11, "c": "Thuốc thử có thể phân biệt glucose và fructose dựa vào khả năng oxi hóa chọn lọc nhóm aldehyde trong điều kiện thích hợp là", "opts": ["nước bromine.", "dung dịch iodine.", "NaCl.", "HCl loãng."], "a": 0, "exp": "Nước bromine."}, {"q": 12, "c": "Tơ acetate được sản xuất từ cellulose acetate. Tơ acetate thuộc loại", "opts": ["tơ thiên nhiên.", "tơ bán tổng hợp.", "tơ tổng hợp polyamide.", "cao su tổng hợp."], "a": 1, "exp": "Tơ bán tổng hợp."}, {"q": 13, "c": "Methylamine CH₃NH₂ là amine bậc một. Trên phổ IR của methylamine, tín hiệu đặc trưng cần chú ý để nhận biết nhóm chức là", "opts": ["dải N–H vùng khoảng 3500–3300 cm⁻¹.", "peak C=O khoảng 1700 cm⁻¹.", "dải O–H acid 3300–2500 cm⁻¹.", "peak C≡N khoảng 2250 cm⁻¹."], "a": 0, "exp": "Dải N-H 3500-3300 cm⁻¹."}, {"q": 14, "c": "Aniline có tính base yếu hơn methylamine chủ yếu vì", "opts": ["aniline có khối lượng mol lớn hơn.", "cặp electron tự do trên N của aniline bị liên hợp với vòng benzene nên kém sẵn sàng nhận H⁺.", "methylamine không có cặp electron tự do.", "aniline không tan trong bất kì dung môi nào."], "a": 1, "exp": "Cặp e tự do trên N liên hợp với vòng benzene."}, {"q": 15, "c": "Ở pH gần điểm đẳng điện, alanine tồn tại chủ yếu ở dạng", "opts": ["cation NH₃⁺–CH(CH₃)–COOH.", "anion NH₂–CH(CH₃)–COO⁻.", "ion lưỡng cực NH₃⁺–CH(CH₃)–COO⁻.", "phân tử hoàn toàn không phân cực."], "a": 2, "exp": "Ion lưỡng cực."}, {"q": 16, "c": "Trong điện trường, ở pH thấp hơn nhiều so với điểm đẳng điện của glycine, glycine tồn tại chủ yếu dạng cation và sẽ chuyển về", "opts": ["cực âm (cathode).", "cực dương (anode).", "không chuyển động.", "cả hai cực với tốc độ như nhau."], "a": 0, "exp": "Dạng cation chuyển về cực âm."}, {"q": 17, "c": "Nylon-6,6 là polyamide được điều chế chủ yếu từ adipic acid và", "opts": ["ethylene glycol.", "hexamethylenediamine.", "aniline.", "caprolactam."], "a": 1, "exp": "Hexamethylenediamine."}, {"q": 18, "c": "Cao su thiên nhiên có thành phần chính là cis-1,4-polyisoprene. Monomer tương ứng là", "opts": ["CH₂=CH₂.", "CH₂=CH–CH=CH₂.", "CH₂=C(CH₃)–CH=CH₂.", "C₆H₅CH=CH₂."], "a": 2, "exp": "Isoprene CH2=C(CH3)-CH=CH2."}]}, {"partId": "p2", "title": "PHẦN II. Câu trắc nghiệm đúng - sai (4 câu)", "type": "tf", "questions": [{"q": 1, "c": "Khảo sát phản ứng oxi hóa ethanol bằng 1,59 g CuO nung nóng, thu chất lỏng X rồi cho tác dụng với thuốc thử Tollens dư:", "items": [{"t": "Màu đen của CuO giảm và có đồng kim loại màu đỏ tạo thành.", "a": "Đ"}, {"t": "Sản phẩm oxi hóa hữu cơ chính trong X là ethanal.", "a": "Đ"}, {"t": "Nếu toàn bộ 0,020 mol CuO phản ứng theo đúng phương trình, lượng ethanal tối đa tạo ra là 0,020 mol.", "a": "Đ"}, {"t": "Nếu toàn bộ ethanal tạo ra phản ứng Tollens hoàn toàn thì khối lượng Ag tối đa chỉ bằng 2,16 g.", "a": "S"}], "exp": "m(Ag) tối đa = 0,02 * 2 * 108 = 4,32 g."}, {"q": 2, "c": "Phổ MS của hợp chất X có peak ion phân tử tại m/z = 93. X chỉ chứa C, H, N và có vòng benzene:", "items": [{"t": "Công thức phân tử phù hợp của X là C₆H₇N.", "a": "Đ"}, {"t": "X có thể là aniline và được xếp vào amine thơm bậc một.", "a": "Đ"}, {"t": "Aniline có tính base mạnh hơn methylamine trong nước.", "a": "S"}, {"t": "0,10 mol aniline phản ứng tối đa với 0,10 mol HCl để tạo muối anilinium chloride.", "a": "Đ"}], "exp": "Aniline có tính base yếu hơn methylamine."}, {"q": 3, "c": "Chuẩn độ acid béo tự do trong 5,00 g dầu ăn bằng KOH 0,100 M (tiêu thụ 2,80 mL, mẫu trắng 0,20 mL):", "items": [{"t": "Phải trừ thể tích mẫu trắng để hiệu chỉnh lượng KOH do dung môi hoặc thuốc thử tiêu thụ.", "a": "Đ"}, {"t": "Số mol KOH thực sự trung hòa acid béo tự do là 2,60×10⁻⁴ mol.", "a": "Đ"}, {"t": "Chỉ số acid của mẫu xấp xỉ 2,92 mg KOH/g dầu.", "a": "Đ"}, {"t": "Dầu có chỉ số acid càng cao thì thông thường càng ít có dấu hiệu thủy phân, ôi hóa.", "a": "S"}], "exp": "Dầu có chỉ số acid cao là dầu đã bị ôi thiu."}, {"q": 4, "c": "Theo dõi sự thủy phân protein bằng enzyme protease qua phản ứng biuret và ninhydrin:", "items": [{"t": "Kết quả phù hợp với quá trình cắt dần các liên kết peptide.", "a": "Đ"}, {"t": "Để khảo sát riêng ảnh hưởng của thời gian, lượng protein, enzyme và nhiệt độ cần được giữ như nhau giữa các mẫu.", "a": "Đ"}, {"t": "Nếu sau 60 phút phản ứng biuret vẫn dương tính thì chắc chắn trong mẫu không còn peptide nào.", "a": "S"}, {"t": "Kết quả ninhydrin tăng có thể dùng làm bằng chứng hỗ trợ cho sự tạo thành nhiều nhóm amino tự do hơn khi thủy phân tiến triển.", "a": "Đ"}], "exp": "Biuret dương tính chứng tỏ vẫn còn liên kết peptide."}]}, {"partId": "p3", "title": "PHẦN III. Câu trắc nghiệm trả lời ngắn (6 câu)", "type": "short", "questions": [{"q": 1, "c": "Xác định hàm lượng acetic acid trong giấm: chuẩn độ 10,00 mL giấm sau pha loãng 10 lần cần 8,25 mL NaOH 0,100 M. Tính phần trăm khối lượng acetic acid trong giấm (%).", "a": "4,95%", "exp": "w = 4,95%."}, {"q": 2, "c": "Một hỗn hợp chất béo gồm tristearin (M = 890) và trilinolein (M = 878) có khối lượng 89,0 g. Hydrogen hóa hoàn toàn hỗn hợp cần 0,30 mol H₂ (trilinolein có 6 liên kết C=C). Tính phần trăm khối lượng trilinolein trong hỗn hợp (%).", "a": "49,33%", "exp": "%m = 49,33%."}, {"q": 3, "c": "Thủy phân 17,1 g maltose (M = 342) với hiệu suất 80,0%. Sau khi trung hòa acid, cho toàn bộ sản phẩm tác dụng với thuốc thử Tollens dư. Tính khối lượng Ag thu được (gam).", "a": "19,44", "exp": "m = 19,44 gam."}, {"q": 4, "c": "Hỗn hợp gồm glycine và lysine có tổng số mol 0,100 mol phản ứng tối đa với 0,140 mol HCl. Tính khối lượng hỗn hợp ban đầu (gam).", "a": "10,34", "exp": "m = 0,06*75 + 0,04*146 = 10,34 gam."}, {"q": 5, "c": "Một pentapeptide mạch hở tạo bởi 2 Gly, 1 Ala, 1 Val, 1 Glu (M = 75; 89; 117; 147). Tính phân tử khối của pentapeptide.", "a": "431", "exp": "M = 2*75 + 89 + 117 + 147 - 4*18 = 431."}, {"q": 6, "c": "Tái chế 96,0 kg PET (mắt xích M = 192) thủy phân kiềm hoàn toàn tạo disodium terephthalate (M = 210) với hiệu suất thu hồi 90,0%. Tính khối lượng muối thu được (kg).", "a": "94,50", "exp": "m = (96/192) * 210 * 0,90 = 94,50 kg."}]}]}, {"id": "de05", "code": "ĐỀ 05", "title": "Đề số 05 - Đề Tham Khảo Mã HC01 (Kỳ thi Tốt nghiệp THPT)", "time": 50, "parts": [{"partId": "p1", "title": "PHẦN I. TRẮC NGHIỆM NHIỀU LỰA CHỌN (18 câu)", "type": "single", "questions": [{"q": 1, "c": "Khảo sát ảnh hưởng của nhiệt độ đến phản ứng điều chế ethyl acetate (ở 50 °C, 60 °C, 70 °C). Các yếu tố: (1) thời gian; (2) nồng độ, thể tích ban đầu; (3) màu sắc; (4) nhiệt độ. Yếu tố nào cần thiết lập giống nhau ở cả ba thí nghiệm?", "opts": ["(1), (2).", "(2), (3).", "(1), (4).", "(3), (4)."], "a": 0, "exp": "Thời gian và nồng độ thể tích ban đầu là các biến kiểm soát cần giữ cố định."}, {"q": 2, "c": "Amine nào sau đây là amine bậc hai?", "opts": ["CH₃NHCH₃.", "CH₃NH₂.", "C₆H₅NH₂.", "(CH₃)₃N."], "a": 0, "exp": "CH3NHCH3 là amine bậc hai."}, {"q": 3, "c": "Polypropylene được điều chế bằng phản ứng trùng hợp chất nào sau đây?", "opts": ["Ethylene.", "Styrene.", "Vinyl chloride.", "Propene."], "a": 3, "exp": "Propene CH2=CH-CH3."}, {"q": 4, "c": "Phản ứng với thuốc thử Tollens thể hiện tính chất của nhóm chức nào trong phân tử propanal?", "opts": ["Hydroxy (–OH).", "Aldehyde (–CHO).", "Carboxyl (–COOH).", "Amino (–NH₂)."], "a": 1, "exp": "Nhóm aldehyde (-CHO)."}, {"q": 5, "c": "Phát biểu nào sau đây không đúng về protein?", "opts": ["Protein đơn giản được tạo nên từ các gốc β- hoặc γ-amino acid.", "Protein trong lòng trắng trứng có phản ứng màu biuret.", "Trong thành phần protein luôn có nguyên tố nitrogen.", "Protein bị thủy phân trong môi trường acid hoặc base."], "a": 0, "exp": "Protein tạo nên từ các gốc α-amino acid."}, {"q": 6, "c": "Đặc điểm nào sau đây không đúng đối với methylamine?", "opts": ["Methylamine có công thức phân tử CH₅N.", "Methylamine là amine bậc ba.", "Methylamine phản ứng được với dung dịch HCl.", "Methylamine làm quỳ tím ẩm chuyển màu xanh."], "a": 1, "exp": "Methylamine là amine bậc một."}, {"q": 7, "c": "Trong phân tử chất hữu cơ, carbon có hóa trị IV; các nguyên tử carbon có thể liên kết với nhau tạo thành mạch carbon. Những nội dung này được nêu trong", "opts": ["quy tắc Markovnikov.", "thuyết cấu tạo hóa học.", "quy tắc Zaitsev.", "thuyết acid–base Brønsted–Lowry."], "a": 1, "exp": "Thuyết cấu tạo hóa học."}, {"q": 8, "c": "Tín hiệu hấp thụ đặc trưng của liên kết C=O trên phổ IR nằm trong khoảng 1750–1670 cm⁻¹. Chất hữu cơ X có tín hiệu hấp thụ ở 1710 cm⁻¹. X có thể là", "opts": ["CH₃CH₂OH.", "CH₃NHCH₃.", "CH₃COCH₃.", "CH₃OH."], "a": 2, "exp": "CH3COCH3 (chứa nhóm C=O)."}, {"q": 9, "c": "Công thức cấu tạo thu gọn của 2-methylpropane là", "opts": ["CH₃CH₃.", "CH₃CH₂CH₃.", "CH₃CH₂CH₂CH₃.", "CH₃CH(CH₃)₂."], "a": 3, "exp": "CH3CH(CH3)2."}, {"q": 10, "c": "Tên thông thường của chất CH₃–CH(NH₂)–COOH là", "opts": ["lysine.", "valine.", "glycine.", "alanine."], "a": 3, "exp": "Alanine."}, {"q": 11, "c": "Lòng trắng trứng chuyển từ dạng lỏng sang dạng rắn khi đun nóng. Hiện tượng này là do", "opts": ["đông tụ protein.", "thủy phân protein.", "trùng ngưng amino acid.", "điện di amino acid."], "a": 0, "exp": "Đông tụ protein."}, {"q": 12, "c": "Cấu tạo của một mắt xích polyethylene (PE) là", "opts": ["–CH₂–CH(CH₃)–.", "–CH₂–CHCl–.", "–CH₂–CH₂–.", "–C₆H₁₀O₅–."], "a": 2, "exp": "-CH2-CH2-."}, {"q": 13, "c": "Phản ứng giữa nước bromine và dung dịch chất nào sau đây tạo kết tủa trắng?", "opts": ["Ethylene glycol.", "Glycerol.", "Phenol.", "Ethanol."], "a": 2, "exp": "Phenol."}, {"q": 14, "c": "Aniline (C₆H₅NH₂) phản ứng được với dung dịch nào sau đây?", "opts": ["NaCl.", "Na₂CO₃.", "NaOH.", "HCl."], "a": 3, "exp": "HCl."}, {"q": 15, "c": "Khi đun nóng hỗn hợp nước và ethanol thu được từ lên men rượu, dẫn hơi qua sinh hàn làm lạnh thu được rượu nồng độ cao hơn. Phương pháp là", "opts": ["kết tinh.", "chiết.", "chưng cất.", "sắc kí."], "a": 2, "exp": "Chưng cất."}, {"q": 16, "c": "Chất nào sau đây thuộc loại monosaccharide?", "opts": ["Glucose.", "Glycerol.", "Saccharose.", "Tinh bột."], "a": 0, "exp": "Glucose."}, {"q": 17, "c": "Dung dịch glucose không có tính chất hóa học nào sau đây?", "opts": ["Phản ứng với Cu(OH)₂.", "Phản ứng với nước bromine.", "Phản ứng thủy phân.", "Phản ứng với thuốc thử Tollens."], "a": 2, "exp": "Glucose không bị thủy phân."}, {"q": 18, "c": "Để chuyển dầu thực vật thành bơ thực vật, người ta thực hiện quá trình", "opts": ["làm lạnh.", "xà phòng hóa.", "hydrogen hóa.", "oxi hóa bởi oxygen không khí."], "a": 2, "exp": "Hydrogen hóa chất béo không no."}]}, {"partId": "p2", "title": "PHẦN II. TRẮC NGHIỆM ĐÚNG – SAI (4 câu)", "type": "tf", "questions": [{"q": 1, "c": "Cellulose và tinh bột đều có công thức chung (C₆H₁₀O₅)ₙ. Tinh bột gồm amylose và amylopectin:", "items": [{"t": "Cellulose và tinh bột đều là polymer thiên nhiên.", "a": "Đ"}, {"t": "Phản ứng thủy phân trên là phản ứng tăng mạch polymer.", "a": "S"}, {"t": "Vì có cùng công thức chung nên phân tử khối của cellulose và tinh bột luôn bằng nhau.", "a": "S"}, {"t": "Cellulose và amylopectin đều có cấu tạo mạch polymer phân nhánh.", "a": "S"}], "exp": "Cellulose mạch không phân nhánh; phản ứng thủy phân là cắt mạch."}, {"q": 2, "c": "Về cấu trúc và tính chất của glucose, fructose và saccharose:", "items": [{"t": "Hai đơn vị trong saccharose liên kết với nhau qua liên kết α-1,4-glycoside.", "a": "S"}, {"t": "Glucose và fructose không bị thủy phân nên thuộc loại monosaccharide.", "a": "Đ"}, {"t": "Saccharose không có dạng mở vòng vì không còn nhóm –OH hemiacetal hoặc –OH hemiketal tự do.", "a": "Đ"}, {"t": "Dung dịch saccharose hòa tan Cu(OH)₂ trong môi trường kiềm tạo dung dịch xanh lam vì phân tử có nhiều nhóm –OH liền kề.", "a": "Đ"}], "exp": "Saccharose liên kết qua liên kết α-1,2-glycoside."}, {"q": 3, "c": "Trùng hợp acrylonitrile thu được polyacrylonitrile X; trùng hợp vinyl chloride thu được PVC Y:", "items": [{"t": "X được dùng làm tơ tổng hợp, còn Y được dùng làm chất dẻo.", "a": "Đ"}, {"t": "Tên của polymer X là polyacrylonitrile.", "a": "Đ"}, {"t": "Số liên kết π trong một mắt xích X nhiều hơn trong một phân tử acrylonitrile.", "a": "S"}, {"t": "Acrylonitrile và vinyl chloride đều tham gia phản ứng trùng hợp nhờ có liên kết đôi C=C.", "a": "Đ"}], "exp": "Số liên kết π trong mắt xích ít hơn monomer."}, {"q": 4, "c": "Điều chế isoamyl acetate từ acetic acid và isoamyl alcohol:", "items": [{"t": "Phổ IR có dải hấp thụ khoảng 3390 cm⁻¹ có thể là phổ của isoamyl alcohol.", "a": "Đ"}, {"t": "Phổ IR có peak khoảng 1726 cm⁻¹ và không có dải O–H có thể là phổ của isoamyl acetate.", "a": "Đ"}, {"t": "Nếu đánh dấu nguyên tử O trong nhóm –OH của isoamyl alcohol bằng ¹⁸O thì ¹⁸O xuất hiện trong nước sinh ra.", "a": "S"}, {"t": "Cho 70,4 gam isoamyl alcohol phản ứng với 42,0 gam acetic acid, hiệu suất 40%, thu được 41,6 gam ester.", "a": "S"}], "exp": "O của alcohol đi vào ester; khối lượng ester là 36,4 g."}]}, {"partId": "p3", "title": "PHẦN III. TRẮC NGHIỆM TRẢ LỜI NGẮN (6 câu)", "type": "short", "questions": [{"q": 1, "c": "Cho các chất: (1) methyl acetate; (2) propyl acetate; (3) sodium formate; (4) sodium palmitate; (5) methyl methacrylate; (6) methyl formate. Liệt kê theo thứ tự tăng dần các số ứng với tất cả các chất là ester.", "a": "1256", "exp": "Ester gồm 1, 2, 5, 6 => 1256."}, {"q": 2, "c": "Cellulose nitrate chứa 13,95% nitrogen theo khối lượng. Xác định số gốc nitrate x trung bình trên mỗi mắt xích (làm tròn đến hàng phần trăm).", "a": "2,93", "exp": "x = 2,93."}, {"q": 3, "c": "Cho các ester: (1) methyl propionate; (2) ethyl butyrate; (3) methyl acetate; (4) ethyl propionate. Sắp xếp các ester theo chiều tăng dần độ tan thành bộ bốn số.", "a": "2413", "exp": "Độ tan tăng dần khi số C giảm: 2413."}, {"q": 4, "c": "Cho pI của (1) Gly, (2) Ala, (3) Val, (4) Lys, (5) Glu lần lượt là 6,0; 6,0; 6,0; 9,7 và 3,2. Ở pH = 6,0 có điện trường, amino acid di chuyển về điện cực dương mang số thứ tự nào?", "a": "5", "exp": "Glutamic acid (5) có pI=3,2 < 6,0 nên mang điện tích âm, chuyển về cực dương."}, {"q": 5, "c": "Cho các chất: methane, ethane, ethene, ethyne và propane. Có bao nhiêu chất làm mất màu dung dịch nước bromine?", "a": "2", "exp": "Ethene và ethyne (2 chất)."}, {"q": 6, "c": "Triolein là triglyceride của glycerol và oleic acid C₁₇H₃₃COOH. Tính phân tử khối của triolein.", "a": "884", "exp": "M = 884."}]}]}, {"id": "de06", "code": "ĐỀ 06", "title": "Đề số 06 - Kiểm tra Alcohol & Phenol (Hóa 11 KNTT)", "time": 50, "parts": [{"partId": "p1", "title": "PHẦN I. TRẮC NGHIỆM NHIỀU LỰA CHỌN (16 câu)", "type": "single", "questions": [{"q": 1, "c": "“Alcohol là hợp chất hữu cơ trong phân tử có nhóm …(1)… liên kết trực tiếp với nguyên tử carbon no”. Điền vào (1):", "opts": ["carboxyl.", "hydroxy.", "carbonyl.", "amino."], "a": 1, "exp": "Nhóm hydroxy (-OH)."}, {"q": 2, "c": "“Phenol là những hợp chất hữu cơ trong phân tử có nhóm …(1)… liên kết trực tiếp với nguyên tử carbon của vòng benzene”. Điền vào (1):", "opts": ["hydroxyl.", "methyl.", "hydroxy.", "ethyl."], "a": 2, "exp": "Nhóm hydroxy (-OH)."}, {"q": 3, "c": "Thức uống chứa cồn như rượu, bia, nước trái cây lên men,... đều chứa ethanol. Công thức phân tử của ethanol là", "opts": ["C₃H₈O.", "C₂H₄O.", "C₂H₆O.", "CH₄O."], "a": 2, "exp": "C2H6O."}, {"q": 4, "c": "Cho alcohol CH₃–CH(CH₃)–CH₂–CH₂–CH₂–OH. Tên theo danh pháp thay thế là", "opts": ["4-methylpentan-1-ol.", "2-methylbutan-3-ol.", "3-methylbutan-2-ol.", "1,1-dimethylpropan-3-ol."], "a": 0, "exp": "4-methylpentan-1-ol."}, {"q": 5, "c": "Ở điều kiện thường, chất nào sau đây tồn tại ở thể rắn?", "opts": ["Phenol.", "Ethanol.", "Toluene.", "Glycerol."], "a": 0, "exp": "Phenol là chất rắn kết tinh."}, {"q": 6, "c": "Cho: (I) propane, (II) methanol, (III) dimethyl ether, (IV) ethanol. Dãy sắp xếp theo chiều tăng dần nhiệt độ sôi là", "opts": ["III < I < II < IV.", "IV < I < III < II.", "I < III < II < IV.", "II < I < IV < III."], "a": 2, "exp": "I (-42,1°C) < III (-24,8°C) < II (64,7°C) < IV (78,3°C)."}, {"q": 7, "c": "3 ống nghiệm chứa riêng biệt ethanol, glycerol, phenol: (1) tạo phức xanh lam với Cu(OH)2; (2) kết tủa trắng với Br2; (3) không tạo phức Cu(OH)2. Thứ tự là", "opts": ["ethanol, glycerol, phenol.", "glycerol, ethanol, phenol.", "glycerol, phenol, ethanol.", "phenol, glycerol, ethanol."], "a": 2, "exp": "Glycerol, phenol, ethanol."}, {"q": 8, "c": "Rượu gỗ là alcohol X đơn chức, no, mạch hở, rất độc, chứa 37,5% carbon về khối lượng. Phân tử khối của X là", "opts": ["46.", "60.", "58.", "32."], "a": 3, "exp": "Methanol CH3OH (M=32)."}, {"q": 9, "c": "Có bao nhiêu alcohol bậc hai, no, đơn chức, mạch hở là đồng phân cấu tạo của nhau chứa 68,18% carbon?", "opts": ["2.", "3.", "4.", "5."], "a": 1, "exp": "C5H12O có 3 alcohol bậc hai."}, {"q": 10, "c": "Pha nước rửa tay khô từ 400 mL cồn 96°, 20 mL H₂O₂ 3%, 10 mL glycerol, 2 mL tinh dầu và 68 mL nước. Độ cồn sau khi pha là", "opts": ["63,8°.", "56,7°.", "76,8°.", "67,6°."], "a": 2, "exp": "(400 * 0,96 / 500) * 100 = 76,8°."}, {"q": 11, "c": "Có bao nhiêu chất trong số ethanol, HCl, Na, KOH và dung dịch bromine tác dụng được với phenol ở điều kiện thường?", "opts": ["1.", "2.", "3.", "4."], "a": 2, "exp": "3 chất: Na, KOH, nước bromine."}, {"q": 12, "c": "Trên phổ khối lượng, peak ion phân tử của phenol có giá trị m/z là", "opts": ["94.", "88.", "60.", "102."], "a": 0, "exp": "m/z = 94."}, {"q": 13, "c": "Cho mẩu nhỏ Na vào ethanol dư, sau phản ứng thêm nước rồi nhỏ phenolphthalein. Hiện tượng là", "opts": ["dung dịch chuyển màu hồng.", "dung dịch chuyển màu xanh.", "dung dịch chuyển màu tím.", "dung dịch không chuyển màu."], "a": 0, "exp": "Dung dịch kiềm làm phenolphthalein chuyển màu hồng."}, {"q": 14, "c": "Một số hợp chất phenol (4-hexylresorcinol, BHA, BHT) dùng trong dược phẩm, mỹ phẩm vì", "opts": ["có hoạt tính sinh học.", "có chi phí thấp.", "dễ bảo quản.", "không gây độc nếu dùng dư liều lượng."], "a": 0, "exp": "Có hoạt tính sinh học (chống oxi hóa, bảo quản)."}, {"q": 15, "c": "Poly(phenol–formaldehyde) được điều chế bằng phản ứng trùng ngưng của", "opts": ["phenol và formaldehyde.", "phenol và formic acid.", "sodium phenolate và formaldehyde.", "sodium phenolate và formic acid."], "a": 0, "exp": "Phenol và formaldehyde."}, {"q": 16, "c": "Cho X, Y, Z, T lần lượt là methyl formate, ethyl acetate, acetic acid, propan-1-ol (sôi 31,5 °C; 77,1 °C; 118,2 °C; 97,2 °C). Phát biểu nào sau đây không đúng?", "opts": ["T tan trong nước do tạo được liên kết hydrogen với nước.", "Có thể dùng phương pháp chiết để tách Y khỏi hỗn hợp Y và nước.", "Z có trong giấm ăn với nồng độ khoảng 2% đến 5%.", "X không tác dụng với NaOH trong dung dịch khi đun nóng."], "a": 3, "exp": "X là methyl formate là ester nên có phản ứng thủy phân với NaOH khi đun nóng."}]}, {"partId": "p2", "title": "PHẦN II. TRẮC NGHIỆM ĐÚNG SAI (2 câu)", "type": "tf", "questions": [{"q": 1, "c": "Cho bảng dữ liệu benzyl chloride (sôi 179 °C, nóng chảy −39 °C); benzyl alcohol (sôi 205,3 °C, nóng chảy −15,2 °C); o-cresol (sôi 191 °C, nóng chảy 31 °C):", "items": [{"t": "Ở điều kiện thường 25 °C, cả ba chất đều ở trạng thái lỏng.", "a": "S"}, {"t": "Khi đốt cháy benzyl alcohol và o-cresol, chúng cần lượng oxygen như nhau và tỏa lượng nhiệt bằng nhau.", "a": "S"}, {"t": "Benzyl alcohol có nhiệt độ sôi cao hơn benzyl chloride do giữa các phân tử benzyl alcohol có liên kết hydrogen.", "a": "Đ"}, {"t": "Benzyl chloride rất ít tan trong nước do không tạo được liên kết hydrogen với nước.", "a": "Đ"}], "exp": "o-cresol nóng chảy ở 31°C nên ở 25°C là chất rắn."}, {"q": 2, "c": "Tổng hợp isoamyl acetate từ acetic acid và isoamyl alcohol:", "items": [{"t": "Phổ hồng ngoại có số sóng hấp thụ đặc trưng ở 3390 cm⁻¹ là phổ của isoamyl alcohol.", "a": "Đ"}, {"t": "Phổ hồng ngoại có số sóng hấp thụ ở 1726 cm⁻¹ và không có peak O–H là phổ của isoamyl acetate.", "a": "Đ"}, {"t": "Cho 70,4 gam isoamyl alcohol tác dụng với 42,0 gam acetic acid, hiệu suất 40%, thu được 41,6 gam ester.", "a": "S"}, {"t": "Nếu đánh dấu nguyên tử O trong isoamyl alcohol bằng đồng vị ¹⁸O thì nguyên tử ¹⁸O không xuất hiện trong nước sinh ra của phản ứng ester hóa.", "a": "Đ"}], "exp": "m(ester) = 36,4 g."}]}, {"partId": "p3", "title": "PHẦN III. TRẢ LỜI NGẮN (4 câu)", "type": "short", "questions": [{"q": 1, "c": "Tách nước ethanol ở 140 °C thu được hợp chất hữu cơ X (diethyl ether). Tổng số nguyên tử trong một phân tử X là bao nhiêu?", "a": "15", "exp": "C4H10O có 15 nguyên tử."}, {"q": 2, "c": "Phenol phản ứng với HNO₃ đặc trong H₂SO₄ đặc tạo picric acid. Phân tử khối của picric acid bằng bao nhiêu?", "a": "229", "exp": "C6H2(NO2)3OH (M=229)."}, {"q": 3, "c": "Phenol có nhóm phenyl …(I)… electron, làm …(II)… mật độ electron ở nguyên tử O, đồng thời làm …(III)… mật độ electron trong vòng benzene, nhiều nhất ở các vị trí …(IV)… Ghi mã 4 chữ số theo thứ tự:", "a": "3216", "exp": "(3) hút, (2) giảm, (1) tăng, (6) ortho và para => 3216."}, {"q": 4, "c": "Trộn a lít xăng E5 với b lít xăng E85 thu được xăng E10. Xác định tỉ lệ a : b.", "a": "15 : 1", "exp": "a : b = 15 : 1."}]}]}, {"id": "de07", "code": "ĐỀ 07", "title": "Đề số 07 - Đề Ôn Thi Tốt Nghiệp THPT 2026 (GV Nguyễn Văn Quý)", "time": 50, "parts": [{"partId": "p1", "title": "PHẦN I. Thí sinh trả lời từ câu 1 đến câu 18 (18 câu)", "type": "single", "questions": [{"q": 1, "c": "Hợp chất hữu cơ chỉ có carbon và hydrogen trong thành phần phân tử thuộc loại", "opts": ["hydrocarbon.", "dẫn xuất hydrocarbon.", "carbonate.", "carbohydrate."], "a": 0, "exp": "Hydrocarbon."}, {"q": 2, "c": "Trên phổ IR của benzyl alcohol, peak đặc trưng với số sóng của nhóm –OH (vùng 3600 – 3300 cm⁻¹) là", "opts": ["(1).", "(2).", "(3).", "(4)."], "a": 0, "exp": "Peak (1)."}, {"q": 3, "c": "Cho mẩu nhỏ Na vào ethanol dư, thêm nước rồi nhỏ phenolphthalein. Hiện tượng là", "opts": ["Dung dịch chuyển sang màu hồng.", "Dung dịch không chuyển màu.", "Dung dịch chuyển sang màu xanh.", "Dung dịch chuyển sang màu tím."], "a": 0, "exp": "Dung dịch chuyển sang màu hồng do môi trường base."}, {"q": 4, "c": "Phản ứng giữa nước bromine và dung dịch chất nào sau đây tạo thành kết tủa trắng?", "opts": ["Ethylene glycol.", "Glycerol.", "Phenol.", "Ethyl alcohol."], "a": 2, "exp": "Phenol."}, {"q": 5, "c": "Cho dung dịch CH₃COOH vào NaHCO₃, đưa que diêm đang cháy vào miệng ống nghiệm. Hiện tượng quan sát được là", "opts": ["Không sủi bọt khí, que diêm cháy bình thường.", "Có sủi bọt khí, que diêm bùng cháy.", "Có kết tủa trắng, que diêm cháy bình thường.", "Có sủi bọt khí, que diêm bị tắt."], "a": 3, "exp": "Khí CO2 thoát ra làm tắt que diêm."}, {"q": 6, "c": "Phát biểu nào sau đây về maltose là đúng?", "opts": ["Được cấu tạo từ 1 đơn vị α-glucose và 1 đơn vị β-fructose.", "Có nhiều trong cây mía, hoa thốt nốt, củ cải đường.", "Không chứa nhóm –OH hemiacetal.", "Là chất rắn ở điều kiện thường."], "a": 3, "exp": "Maltose là chất rắn kết tinh."}, {"q": 7, "c": "Ethyl propionate là ester có mùi thơm của dứa. Công thức của ethyl propionate là", "opts": ["HCOOC₂H₅.", "C₂H₅COOC₂H₅.", "C₂H₅COOCH₃.", "CH₃COOCH₃."], "a": 1, "exp": "C2H5COOC2H5."}, {"q": 8, "c": "Hãy chọn phát biểu đúng về lipid trong các phát biểu sau đây:", "opts": ["Lipid là chất béo.", "Lipid là tên gọi chung cho dầu mỡ động, thực vật.", "Lipid là ester của glycerol với các acid béo.", "Lipid là các hợp chất hữu cơ có trong tế bào sống, không tan trong nước, nhưng tan trong dung môi hữu cơ không phân cực. Lipid bao gồm chất béo, sáp, sterit, phospholipid,…"], "a": 3, "exp": "Định nghĩa chính xác về lipid."}, {"q": 9, "c": "Chất nào sau đây thuộc loại monosaccharide?", "opts": ["Saccharose.", "Cellulose.", "Tinh bột.", "Fructose."], "a": 3, "exp": "Fructose."}, {"q": 10, "c": "Hợp chất nào sau đây là amine bậc hai?", "opts": ["C₂H₅NH₂.", "(CH₃)₃N.", "CH₃NH₂.", "C₂H₅NHCH₃."], "a": 3, "exp": "C2H5NHCH3."}, {"q": 11, "c": "Phản ứng của H₂N–CH₂–COOH với HCl và NaOH chứng tỏ aminoacetic acid", "opts": ["có tính chất lưỡng tính.", "có tính oxi hoá và tính khử.", "chỉ có tính base.", "chỉ có tính acid."], "a": 0, "exp": "Có tính chất lưỡng tính."}, {"q": 12, "c": "Pha sữa bằng nước sôi thường thấy vón cục. Hiện tượng đông tụ của protein trong trường hợp này là do", "opts": ["ion kim loại nặng.", "acid.", "nhiệt độ.", "base."], "a": 2, "exp": "Nhiệt độ sôi."}, {"q": 13, "c": "Cấu tạo của một mắt xích nhựa PE là", "opts": ["–CH₂–CH(CH₃)–.", "–CH₂–CHCl–.", "–CH₂–CH₂–.", "–C₆H₁₀O₅–."], "a": 2, "exp": "-CH2-CH2-."}, {"q": 14, "c": "Cho: cellulose, nylon–6, PVC, tơ visco, cao su buna. Số chất thuộc loại polymer tổng hợp là", "opts": ["2.", "4.", "3.", "5."], "a": 2, "exp": "3 chất (nylon-6, PVC, cao su buna)."}, {"q": 15, "c": "Không nên dùng xà phòng khi giặt rửa với nước cứng vì", "opts": ["xuất hiện kết tủa làm giảm tác dụng giặt rửa và ảnh hưởng đến chất lượng sợi vải.", "gây ô nhiễm môi trường.", "xà phòng mất tác dụng khi dùng với nước cứng.", "gây hại cho da tay."], "a": 0, "exp": "Xuất hiện kết tủa muối canxi, magie."}, {"q": 16, "c": "Chất cấu tạo nên thành tế bào thực vật (ở lá cây) là", "opts": ["Glucose.", "Tinh bột.", "Fructose.", "Cellulose."], "a": 3, "exp": "Cellulose."}, {"q": 17, "c": "X làm quỳ tím chuyển xanh; Y tác dụng với Tollens tạo kết tủa Ag; T hòa tan Cu(OH)2 tạo dung dịch xanh lam. Chất Z là", "opts": ["aniline.", "ethylamine.", "glucose.", "formaldehyde."], "a": 0, "exp": "Aniline."}, {"q": 18, "c": "Cho 0,02 mol Gly–Ala–Val phản ứng hoàn toàn với 200 ml dung dịch NaOH 0,5M. Cô cạn dung dịch sau phản ứng thu được m gam chất rắn khan. Giá trị của m là", "opts": ["9,26.", "7,66.", "8,54.", "6,94."], "a": 2, "exp": "m = 0,02*245 + 0,10*40 - 0,02*18 = 8,54 gam."}]}, {"partId": "p2", "title": "PHẦN II. Câu trắc nghiệm đúng hoặc sai (4 câu)", "type": "tf", "questions": [{"q": 1, "c": "Tiến hành điều chế ethyl acetate (ethanol + acetic acid + H2SO4 đặc, đun 70°C, sau đó thêm NaCl bão hòa):", "items": [{"t": "Ở bước 3, dung dịch NaCl bão hòa có vai trò làm tăng hiệu suất phản ứng ester hóa.", "a": "S"}, {"t": "Ở bước 1, trong bình cầu có phản ứng ester hóa sau: CH₃COOH + HOCH₂CH₃ ⇌ CH₃COOCH₂CH₃ + H₂O.", "a": "Đ"}, {"t": "Sau bước 2, chất lỏng trong bình nón tách thành 2 lớp.", "a": "Đ"}, {"t": "Trong thí nghiệm trên, hiệu suất phản ứng 60% thì khối lượng ester thu được là 9,2 gam.", "a": "Đ"}], "exp": "NaCl bão hòa giúp tách lớp ester."}, {"q": 2, "c": "Khảo sát phân hủy cellulose bằng men vi sinh ở 25°C, 37°C, 45°C, 55°C trong 5 ngày:", "items": [{"t": "Trong thí nghiệm trên, nhiệt độ càng cao càng thuận lợi cho quá trình phân hủy cellulose.", "a": "S"}, {"t": "Ở tất cả các nhiệt độ, khối lượng bông của mẫu đối chứng không thay đổi cho thấy môi trường nuôi cấy không chứa men vi sinh không làm phân hủy cellulose.", "a": "Đ"}, {"t": "Ở nhiệt độ tối ưu trong thí nghiệm trên, phần trăm khối lượng bông bị phân hủy lớn hơn 60%.", "a": "Đ"}, {"t": "Giả thuyết đưa ra ban đầu của nhóm học sinh là đúng.", "a": "Đ"}], "exp": "Tại 37°C phân hủy mạnh nhất (60,1%)."}, {"q": 3, "c": "Thủy phân 34,2 gam saccharose với hiệu suất 75% thu được syrup:", "items": [{"t": "Tổng số mol glucose và fructose tạo thành là 0,15 mol.", "a": "Đ"}, {"t": "Cho syrup tác dụng với lượng dư thuốc thử Tollens có thể thu tối đa 0,30 mol Ag.", "a": "Đ"}, {"t": "Cho syrup tác dụng với nước bromine ở nhiệt độ thường thì lượng Br₂ phản ứng tối đa là 0,15 mol.", "a": "S"}, {"t": "Syrup tạo thành thường ít bị kết tinh hơn dung dịch saccharose có cùng hàm lượng chất khô.", "a": "Đ"}], "exp": "Nước bromine chỉ phản ứng với glucose (0,075 mol)."}, {"q": 4, "c": "Hấp thụ H2S và CO2 trong khí thiên nhiên bằng alkanolamine MEA, DEA, MDEA (AEA):", "items": [{"t": "MEA, DEA và MDEA đều là các hợp chất hữu cơ đa chức, lần lượt chứa nhóm chức amine bậc một, bậc hai và bậc ba.", "a": "S"}, {"t": "Dung dịch của AEA có tính base nên tác dụng được với H₂S, CO₂.", "a": "Đ"}, {"t": "MEA, DEA, MDEA có công thức phân tử lần lượt là C₂H₇NO, C₄H₁₁NO₂, C₅H₁₃NO₂.", "a": "Đ"}, {"t": "Khối lượng AEA tối thiểu cần sử dụng để khử H₂S, CO₂ trong 100.000 m³ khí thiên nhiên đã cho là xấp xỉ 96 tấn.", "a": "Đ"}], "exp": "AEA là hợp chất tạp chức (chứa cả -OH và -NH-)."}]}, {"partId": "p3", "title": "PHẦN III. Thí sinh trả lời từ câu 1 đến câu 6 (6 câu)", "type": "short", "questions": [{"q": 1, "c": "Cho 1,5 gam formaldehyde tác dụng với lượng dư thuốc thử Tollens, khối lượng (gam) Ag kim loại tạo thành là bao nhiêu?", "a": "21,6", "exp": "n(HCHO) = 0,05 mol => n(Ag) = 0,20 mol => m = 21,6 gam."}, {"q": 2, "c": "Triolein là triglyceride của glycerol và oleic acid (C₁₇H₃₃COOH). Phân tử khối của triolein là bao nhiêu?", "a": "884", "exp": "M = 884."}, {"q": 3, "c": "Chỉ số acid của chất béo bằng 7. Để phản ứng với 100 gam chất béo phải dùng hết 17,92 gam KOH. Khối lượng muối (xà phòng) thu được là bao nhiêu gam? (Làm tròn đến hàng phần trăm)", "a": "108,28", "exp": "m = 108,28 gam."}, {"q": 4, "c": "Từ 10,0 kg gạo chứa 72% tinh bột sản xuất ethanol qua hai giai đoạn (hiệu suất 85% và 90%). Khối lượng riêng ethanol là 0,80 kg/L. Tính thể tích rượu 40° thu được (L).", "a": "9,8", "exp": "V(rượu 40°) = 9,8 L."}, {"q": 5, "c": "Sản xuất một lô thuốc aspirin gồm 10 triệu viên nén (mỗi viên chứa 81 mg aspirin) với hiệu suất 60% tính theo salicylic acid. Khối lượng salicylic acid cần dùng là bao nhiêu kg?", "a": "1035", "exp": "m = 1035 kg."}, {"q": 6, "c": "Tính số tiền (nghìn đồng) bạn An phải dùng để đổ xăng E5 cho xe trong 1 tháng (300 km, hiệu suất động cơ 40%, giá xăng 31.200 đồng/L).", "a": "179", "exp": "Số tiền xăng là xấp xỉ 179 nghìn đồng."}]}]}];
+
+    const STORAGE_KEY = 'HOA_HOC_VN_7_EXAMS_SUBMISSIONS';
+    let currentStudent = null;
+    let lastSubmissionId = null;
+
+    function getSubmissions() {
+      const data = localStorage.getItem(STORAGE_KEY);
+      return data ? JSON.parse(data) : [];
+    }
+
+    function saveSubmissions(list) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+      updateTeacherDashboard();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // Dong ho
+      setInterval(() => {
+        const now = new Date();
+        document.getElementById('clockCurrent').innerText = now.toLocaleTimeString('vi-VN') + " - " + now.toLocaleDateString('vi-VN');
+      }, 1000);
+
+      // Nap danh sach 7 de thi vao dropdown
+      populateExamSelects();
+
+      // Neu chua co du lieu, nap san du lieu mau
+      if (getSubmissions().length === 0) {
+        initDefaultSampleSubmissions();
+      } else {
+        updateTeacherDashboard();
+      }
+
+      // Lang nghe su kien storage realtime giua cac tab / dien thoai
+      window.addEventListener('storage', (e) => {
+        if (e.key === STORAGE_KEY) {
+          updateTeacherDashboard();
+        }
+      });
+    });
+
+    function populateExamSelects() {
+      const selectStudent = document.getElementById('studentExamSelect');
+      const selectFilter = document.getElementById('filterExamSelect');
+
+      selectStudent.innerHTML = EXAMS_DATABASE.map(e => `
+        <option value="${e.id}">[${e.code}] ${e.title}</option>
+      `).join('');
+
+      selectFilter.innerHTML = `<option value="ALL">Tất cả các đề (7 đề thi)</option>` + EXAMS_DATABASE.map(e => `
+        <option value="${e.id}">[${e.code}] ${e.title}</option>
+      `).join('');
+    }
+
+    function switchView(role) {
+      document.getElementById('btnRoleStudent').classList.toggle('active', role === 'student');
+      document.getElementById('btnRoleTeacher').classList.toggle('active', role === 'teacher');
+      document.getElementById('viewStudent').classList.toggle('active', role === 'student');
+      document.getElementById('viewTeacher').classList.toggle('active', role === 'teacher');
+
+      if (role === 'teacher') {
+        updateTeacherDashboard();
+      }
+    }
+
+    // Khi hoc sinh dang nhap va bat dau lam bai
+    function handleStudentLogin(e) {
+      e.preventDefault();
+      const name = document.getElementById('studentName').value.trim();
+      const sClass = document.getElementById('studentClass').value;
+      const examId = document.getElementById('studentExamSelect').value;
+      const examObj = EXAMS_DATABASE.find(x => x.id === examId);
+
+      if (!name || !examObj) return;
+
+      currentStudent = {
+        name,
+        sClass,
+        examId,
+        examTitle: examObj.title,
+        examCode: examObj.code,
+        examObj
+      };
+
+      document.getElementById('examStudentName').innerText = name;
+      document.getElementById('examStudentClass').innerText = `(${sClass})`;
+      document.getElementById('examTitleDisplay').innerText = examObj.title;
+
+      renderExamForStudent(examObj);
+
+      document.getElementById('studentLoginBox').style.display = 'none';
+      document.getElementById('studentExamBox').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Render de thi hoc sinh voi day du Phan I, II, III
+    function renderExamForStudent(exam) {
+      const container = document.getElementById('questionsListContainer');
+      let html = '';
+
+      exam.parts.forEach(part => {
+        html += `<div class="exam-part-header">📌 ${part.title}</div>`;
+
+        part.questions.forEach(q => {
+          if (part.type === 'single') {
+            // Trac nghiem 4 lua chon
+            html += `
+              <div class="question-box">
+                <div class="q-number">
+                  <span>Câu ${q.q}</span>
+                  <span class="q-badge">Trắc nghiệm</span>
+                </div>
+                <div class="q-content">${escapeHtml(q.c)}</div>
+                <div class="options-grid">
+                  ${q.opts.map((opt, oIdx) => {
+                    const keyLetter = String.fromCharCode(65 + oIdx);
+                    return `
+                      <label class="option-item">
+                        <input type="radio" name="exam_${part.partId}_q_${q.q}" value="${oIdx}" required>
+                        <div><strong>${keyLetter}.</strong> ${escapeHtml(opt)}</div>
+                      </label>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+            `;
+          } else if (part.type === 'tf') {
+            // Dung / Sai (a, b, c, d)
+            html += `
+              <div class="question-box">
+                <div class="q-number">
+                  <span>Câu ${q.q}</span>
+                  <span class="q-badge">Đúng / Sai</span>
+                </div>
+                <div class="q-content">${escapeHtml(q.c)}</div>
+                <table class="tf-table">
+                  <thead>
+                    <tr>
+                      <th style="text-align: left; width: 70%;">Phát biểu / Nhận định</th>
+                      <th style="width: 15%;">Đúng (Đ)</th>
+                      <th style="width: 15%;">Sai (S)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${q.items.map((it, itIdx) => {
+                      const subKey = String.fromCharCode(97 + itIdx);
+                      return `
+                        <tr>
+                          <td><strong>${subKey})</strong> ${escapeHtml(it.t)}</td>
+                          <td style="text-align: center;">
+                            <label class="tf-label">
+                              <input type="radio" name="exam_${part.partId}_q_${q.q}_${subKey}" value="Đ" required> Đ
+                            </label>
+                          </td>
+                          <td style="text-align: center;">
+                            <label class="tf-label">
+                              <input type="radio" name="exam_${part.partId}_q_${q.q}_${subKey}" value="S" required> S
+                            </label>
+                          </td>
+                        </tr>
+                      `;
+                    }).join('')}
+                  </tbody>
+                </table>
+              </div>
+            `;
+          } else if (part.type === 'short') {
+            // Tra loi ngan
+            html += `
+              <div class="question-box">
+                <div class="q-number">
+                  <span>Câu ${q.q}</span>
+                  <span class="q-badge">Trả lời ngắn</span>
+                </div>
+                <div class="q-content">${escapeHtml(q.c)}</div>
+                <div class="short-input-box">
+                  <label style="margin: 0; font-weight: bold; color: var(--primary-darkred);">Đáp án của em:</label>
+                  <input type="text" name="exam_${part.partId}_q_${q.q}" placeholder="Ghi số hoặc đáp án..." required>
+                </div>
+              </div>
+            `;
+          }
+        });
+      });
+
+      container.innerHTML = html;
+    }
+
+    // Xu ly nop bai va cham diem
+    function handleExamSubmit(e) {
+      e.preventDefault();
+      if (!currentStudent) return;
+
+      const exam = currentStudent.examObj;
+      let totalCommands = 0;
+      let correctCommands = 0;
+      const details = [];
+
+      exam.parts.forEach(part => {
+        part.questions.forEach(q => {
+          if (part.type === 'single') {
+            totalCommands++;
+            const checked = document.querySelector(`input[name="exam_${part.partId}_q_${q.q}"]:checked`);
+            const selectedIdx = checked ? parseInt(checked.value) : -1;
+            const isCorrect = (selectedIdx === q.a);
+            if (isCorrect) correctCommands++;
+
+            details.push({
+              partTitle: part.title,
+              qNum: q.q,
+              type: 'single',
+              content: q.c,
+              userAnswer: selectedIdx >= 0 ? `${String.fromCharCode(65 + selectedIdx)}. ${q.opts[selectedIdx]}` : 'Chưa chọn',
+              correctAnswer: `${String.fromCharCode(65 + q.a)}. ${q.opts[q.a]}`,
+              isCorrect,
+              explain: q.exp
+            });
+          } else if (part.type === 'tf') {
+            q.items.forEach((it, itIdx) => {
+              totalCommands++;
+              const subKey = String.fromCharCode(97 + itIdx);
+              const checked = document.querySelector(`input[name="exam_${part.partId}_q_${q.q}_${subKey}"]:checked`);
+              const userVal = checked ? checked.value : '';
+              const isCorrect = (userVal.toUpperCase() === it.a.toUpperCase());
+              if (isCorrect) correctCommands++;
+
+              details.push({
+                partTitle: part.title,
+                qNum: `${q.q} (${subKey})`,
+                type: 'tf',
+                content: it.t,
+                userAnswer: userVal || 'Chưa chọn',
+                correctAnswer: it.a,
+                isCorrect,
+                explain: q.exp
+              });
+            });
+          } else if (part.type === 'short') {
+            totalCommands++;
+            const inputField = document.querySelector(`input[name="exam_${part.partId}_q_${q.q}"]`);
+            const userText = inputField ? inputField.value.trim() : '';
+
+            // So sanh dap an ngan
+            const normalizedUser = userText.toLowerCase().replace(/\s+/g, '').replace(',', '.');
+            const normalizedAns = q.a.toLowerCase().replace(/\s+/g, '').replace(',', '.');
+            const isCorrect = (normalizedUser === normalizedAns || (q.accept && q.accept.some(acc => acc.toLowerCase().replace(/\s+/g, '').replace(',', '.') === normalizedUser)));
+
+            if (isCorrect) correctCommands++;
+
+            details.push({
+              partTitle: part.title,
+              qNum: q.q,
+              type: 'short',
+              content: q.c,
+              userAnswer: userText || 'Chưa trả lời',
+              correctAnswer: q.a,
+              isCorrect,
+              explain: q.exp
+            });
+          }
+        });
+      });
+
+      // Tinh diem tren thang 10
+      const score = Number(((correctCommands / totalCommands) * 10).toFixed(1));
+      const now = new Date();
+      const submissionTime = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' ' + now.toLocaleDateString('vi-VN');
+
+      const subId = 'SUB_' + Date.now();
+      lastSubmissionId = subId;
+
+      const submission = {
+        id: subId,
+        studentName: currentStudent.name,
+        studentClass: currentStudent.sClass,
+        examId: currentStudent.examId,
+        examCode: currentStudent.examCode,
+        examTitle: currentStudent.examTitle,
+        totalCommands,
+        correctCommands,
+        score,
+        time: submissionTime,
+        details
+      };
+
+      const list = getSubmissions();
+      list.unshift(submission);
+      saveSubmissions(list);
+
+      // Hien thi man hinh ket qua
+      document.getElementById('studentExamBox').style.display = 'none';
+      document.getElementById('studentResultBox').style.display = 'block';
+      document.getElementById('resScoreVal').innerText = score.toFixed(1);
+      document.getElementById('resDetailText').innerText = `Đúng ${correctCommands}/${totalCommands} lệnh hỏi (${score.toFixed(1)}/10 điểm)`;
+
+      triggerRealtimeToast(`${submission.studentName} (${submission.studentClass}) vừa nộp bài [${submission.examCode}]! Điểm: ${score.toFixed(1)}`);
+    }
+
+    function viewMySubmissionDetail() {
+      if (lastSubmissionId) {
+        viewSubmissionDetail(lastSubmissionId);
+      }
+    }
+
+    function resetStudentExam() {
+      currentStudent = null;
+      document.getElementById('studentLoginForm').reset();
+      document.getElementById('examQuestionsForm').reset();
+      document.getElementById('studentResultBox').style.display = 'none';
+      document.getElementById('studentLoginBox').style.display = 'block';
+    }
+
+    // Cap nhat trang Giao Vien
+    function updateTeacherDashboard() {
+      const allSubmissions = getSubmissions();
+      const filterExam = document.getElementById('filterExamSelect').value;
+
+      const filtered = (filterExam === 'ALL')
+        ? allSubmissions
+        : allSubmissions.filter(s => s.examId === filterExam);
+
+      const total = filtered.length;
+      document.getElementById('statTotalSubmissions').innerText = total;
+
+      if (total === 0) {
+        document.getElementById('statAvgScore').innerText = '0.0';
+        document.getElementById('statHighestScore').innerText = '0.0';
+      } else {
+        const sum = filtered.reduce((acc, cur) => acc + cur.score, 0);
+        const avg = (sum / total).toFixed(1);
+        const highest = Math.max(...filtered.map(s => s.score)).toFixed(1);
+        document.getElementById('statAvgScore').innerText = avg;
+        document.getElementById('statHighestScore').innerText = highest;
+      }
+
+      renderHistogram(filtered);
+      renderSubmissionsTable(filtered);
+    }
+
+    function renderHistogram(submissions) {
+      const bins = [
+        { label: "0 - 2.9 (Yếu)", count: 0, range: [0, 2.9] },
+        { label: "3.0 - 4.9 (Chưa đạt)", count: 0, range: [3.0, 4.9] },
+        { label: "5.0 - 6.4 (Trung bình)", count: 0, range: [5.0, 6.4] },
+        { label: "6.5 - 7.9 (Khá)", count: 0, range: [6.5, 7.9] },
+        { label: "8.0 - 8.9 (Giỏi)", count: 0, range: [8.0, 8.9] },
+        { label: "9.0 - 10 (Xuất sắc)", count: 0, range: [9.0, 10.0] }
+      ];
+
+      submissions.forEach(sub => {
+        for (let b of bins) {
+          if (sub.score >= b.range[0] && sub.score <= b.range[1]) {
+            b.count++;
+            break;
+          }
+        }
+      });
+
+      const maxCount = Math.max(...bins.map(b => b.count), 1);
+      const container = document.getElementById('histogramBarsContainer');
+
+      container.innerHTML = bins.map(b => {
+        const heightPct = (b.count / maxCount) * 85;
+        return `
+          <div class="histogram-bar-group">
+            <div class="bar" style="height: ${heightPct === 0 ? '4px' : heightPct + '%'};">
+              <span class="bar-tooltip">${b.count} HS</span>
+            </div>
+            <div class="bar-label">${b.label}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderSubmissionsTable(submissions) {
+      const tbody = document.getElementById('submissionsTableBody');
+      if (submissions.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" style="text-align: center; color: var(--text-muted); padding: 2rem;">
+              Chưa có bài thi nào được nộp cho đề này.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = submissions.map((sub, idx) => {
+        let scoreClass = 'score-low';
+        if (sub.score >= 8.0) scoreClass = 'score-high';
+        else if (sub.score >= 5.0) scoreClass = 'score-mid';
+
+        return `
+          <tr>
+            <td><strong>${idx + 1}</strong></td>
+            <td><small style="color: #6b7280;">${sub.time}</small></td>
+            <td><strong>${escapeHtml(sub.studentName)}</strong></td>
+            <td><span style="background: #f3f4f6; padding: 2px 6px; border-radius: 4px;">${escapeHtml(sub.studentClass)}</span></td>
+            <td><span class="exam-card-badge">${sub.examCode || 'ĐỀ'}</span> ${escapeHtml(sub.examTitle)}</td>
+            <td>${sub.correctCommands}/${sub.totalCommands}</td>
+            <td><span class="score-badge ${scoreClass}">${sub.score.toFixed(1)}</span></td>
+            <td>
+              <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.8rem;" onclick="viewSubmissionDetail('${sub.id}')">
+                🔍 Xem chi tiết
+              </button>
+              <button class="btn btn-danger" style="padding: 4px 8px; font-size: 0.8rem; margin-left: 4px;" onclick="deleteSingleSubmission('${sub.id}')">
+                Xóa
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function viewSubmissionDetail(id) {
+      const submissions = getSubmissions();
+      const sub = submissions.find(s => s.id === id);
+      if (!sub) return;
+
+      const modalBody = document.getElementById('modalBodyContent');
+      modalBody.innerHTML = `
+        <div style="background: #f9fafb; padding: 12px; border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid var(--primary-red);">
+          <p><strong>Học sinh:</strong> ${escapeHtml(sub.studentName)} - <strong>Lớp:</strong> ${escapeHtml(sub.studentClass)}</p>
+          <p><strong>Đề thi:</strong> [${sub.examCode}] ${escapeHtml(sub.examTitle)}</p>
+          <p><strong>Thời gian nộp:</strong> ${sub.time} | <strong>Điểm số:</strong> <span style="font-weight: bold; color: var(--primary-red); font-size: 1.1rem;">${sub.score.toFixed(1)}/10</span> (${sub.correctCommands}/${sub.totalCommands} lệnh đúng)</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          ${sub.details.map((d, index) => `
+            <div style="border-left: 4px solid ${d.isCorrect ? '#10b981' : '#ef4444'}; background: ${d.isCorrect ? '#f0fdf4' : '#fef2f2'}; padding: 10px 12px; border-radius: 0 8px 8px 0;">
+              <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 4px;">
+                Câu ${d.qNum}: ${escapeHtml(d.content)}
+              </div>
+              <div style="font-size: 0.85rem; margin-bottom: 4px;">
+                <strong>Học sinh chọn/ghi:</strong> <span style="color: #1f2937;">${escapeHtml(String(d.userAnswer))}</span>
+                ${d.isCorrect ? '<span style="color: #059669; font-weight: bold; margin-left: 6px;">(Đúng ✔)</span>' : `<span style="color: #dc2626; font-weight: bold; margin-left: 6px;">(Sai ✘ - Đáp án đúng: ${escapeHtml(String(d.correctAnswer))})</span>`}
+              </div>
+              ${d.explain ? `<div style="font-size: 0.8rem; color: #4b5563; font-style: italic; background: rgba(255,255,255,0.7); padding: 4px 8px; border-radius: 4px; margin-top: 4px;">💡 <strong>Gợi ý/Giải thích:</strong> ${escapeHtml(d.explain)}</div>` : ''}
+            </div>
+          `).join('')}
+        </div>
+      `;
+
+      document.getElementById('detailModal').classList.add('open');
+    }
+
+    function closeDetailModal() {
+      document.getElementById('detailModal').classList.remove('open');
+    }
+
+    function deleteSingleSubmission(id) {
+      if (confirm("Thầy/Cô có chắc chắn muốn xóa bài làm của học sinh này không?")) {
+        const list = getSubmissions().filter(s => s.id !== id);
+        saveSubmissions(list);
+      }
+    }
+
+    function confirmClearAllResults() {
+      if (confirm("CẢNH BÁO: Thao tác này sẽ xóa toàn bộ kết quả bài làm học sinh. Thầy/Cô có chắc chắn muốn xóa?")) {
+        saveSubmissions([]);
+      }
+    }
+
+    function exportResultsToCSV() {
+      const submissions = getSubmissions();
+      if (submissions.length === 0) {
+        alert("Chưa có dữ liệu bài làm để xuất file!");
+        return;
+      }
+
+      let csvContent = "\uFEFF";
+      csvContent += "STT,Thời Gian Nộp,Họ Và Tên,Lớp,Mã Đề,Tên Đề Bài,Số Lệnh Đúng,Tổng Số Lệnh,Điểm Số\n";
+
+      submissions.forEach((s, idx) => {
+        const row = [
+          idx + 1,
+          `"${s.time}"`,
+          `"${s.studentName.replace(/"/g, '""')}"`,
+          `"${s.studentClass}"`,
+          `"${s.examCode || ''}"`,
+          `"${s.examTitle.replace(/"/g, '""')}"`,
+          s.correctCommands,
+          s.totalCommands,
+          s.score.toFixed(1)
+        ];
+        csvContent += row.join(",") + "\n";
+      });
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `Ket_Qua_7_De_Thi_Hoa_Hoc_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function loadSampleData() {
+      const sampleNames = [
+        "Trần Quốc Tuấn", "Lê Văn Tám", "Nguyễn Thị Ánh Viên", "Võ Thị Sáu",
+        "Phan Bội Châu", "Hoàng Diệu", "Hai Bà Trưng", "Đinh Tiên Hoàng",
+        "Ngô Quyền", "Lý Thường Kiệt"
+      ];
+      const classes = ["12A1", "12A2", "12A3", "12A4", "12A5", "12A6", "12A7", "12A8", "12A9", "12A10", "12A11", "12A12", "12A13", "12A14", "12A15"];
+      const scores = [9.5, 8.8, 7.5, 6.2, 8.0, 9.0, 5.5, 8.5, 4.5, 10.0];
+
+      const current = getSubmissions();
+      sampleNames.forEach((name, i) => {
+        const exam = EXAMS_DATABASE[i % EXAMS_DATABASE.length];
+        const score = scores[i];
+        const totalCmds = 40;
+        const correctCmds = Math.round((score / 10) * totalCmds);
+
+        const sub = {
+          id: 'SAMPLE_' + Date.now() + '_' + i,
+          studentName: name,
+          studentClass: classes[i % classes.length],
+          examId: exam.id,
+          examCode: exam.code,
+          examTitle: exam.title,
+          totalCommands: totalCmds,
+          correctCommands: correctCmds,
+          score,
+          time: new Date(Date.now() - (10 - i) * 180000).toLocaleTimeString('vi-VN') + ' ' + new Date().toLocaleDateString('vi-VN'),
+          details: [
+            {
+              partTitle: "PHẦN I",
+              qNum: 1,
+              type: "single",
+              content: "Câu hỏi khảo sát kiến thức hóa học hữu cơ tổng hợp",
+              userAnswer: "Đáp án A",
+              correctAnswer: "Đáp án A",
+              isCorrect: true,
+              explain: "Giải thích chi tiết phản ứng và cơ chế hóa học."
+            }
+          ]
+        };
+        current.push(sub);
+      });
+
+      saveSubmissions(current);
+      triggerRealtimeToast("Đã nạp thành công 10 bài làm học sinh mẫu trên các đề!");
+    }
+
+    function initDefaultSampleSubmissions() {
+      loadSampleData();
+    }
+
+    function triggerRealtimeToast(msg) {
+      const toast = document.getElementById('liveToast');
+      const toastMsg = document.getElementById('toastMessage');
+      toastMsg.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 4000);
+    }
+
+    function escapeHtml(str) {
+      return (str || '').replace(/[&<>"']/g, function(m) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+      });
+    }
+  </script>
+</body>
+</html>
